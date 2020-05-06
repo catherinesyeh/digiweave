@@ -20,10 +20,6 @@ type Row =  // row has 1+ knots
 | Knots of Knot list
 type Pattern = // pattern has 1+ rows
 | Rows of Row list 
-type Expr =
-| Pattern 
-| Row 
-| Knot
 
 (* PARSER HELPERS *)
 // form list of parsed items
@@ -37,11 +33,11 @@ let lr = pstr "LR" |>> LR
 
 // knots are assumed to be in order for now
 let knot = ll <|> rr <|> rl <|> lr
-let row = (pmany2sep knot pws1) |>> (fun _ -> Knots)
-let expr = (pmany2sep row pnl) |>> (fun _ -> Pattern)
+let row = (pmany2sep knot pws1) |>> Knots
+let expr = (pmany2sep row pnl) |>> Rows
 let grammar = pleft expr peof
 
-let parse(s: string) : Expr option =
+let parse(s: string) : Pattern option =
     match grammar (prepare s) with
     | Success(res, _) -> Some res
     | Failure _ -> None
