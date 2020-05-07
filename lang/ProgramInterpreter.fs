@@ -2,6 +2,7 @@
 module ProgramInterpreter
 open ProgramParser
 
+(**
 let eval e =
     let rec evalrec e = // helper to actually parse the pattern
         match e with
@@ -18,3 +19,4 @@ let eval e =
         printf "%d " i
         printf "\n"
     e |> List.map evalrec
+**)
