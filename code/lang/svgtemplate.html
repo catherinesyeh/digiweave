@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<!-- colors of strings -->
+<!-- full list: https://www.w3schools.com/colors/colors_names.asp -->
+<style>
+    .string1 {
+        --color: indianred;
+    }
+
+    .string2 {
+        --color: darksalmon;
+    }
+
+    .string3 {
+        --color: darkseagreen;
+    }
+
+    .string4 {
+        --color: darkslategrey;
+    }
+</style>
+
+<body>
+
+    <h1>Test SVG</h1>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500">
+        <defs>
+            <!-- arrow head -->
+            <marker id="arrowhead" markerWidth="5" markerHeight="5"
+                    refX="0" refY="2" orient="auto">
+                <polygon points="0 0, 4 2, 0 4" fill="white" />
+            </marker>
+
+            <!-- right arrow -->
+            <symbol id="rarrow">
+                <line x1="30" y1="40" x2="60" y2="40" stroke="white"
+                      stroke-width="3" marker-end="url(#arrowhead)" />
+            </symbol>
+
+            <!-- knot -->
+            <symbol id="knot">
+                <circle cx="50" cy="50" r="40" />
+            </symbol>
+
+            <!-- two arrows pointing in same direction -->
+            <symbol id="twoarrows">
+                <g>
+                    <!-- top arrow -->
+                    <use xlink:href="#rarrow" />
+
+                    <!-- bottom arrow -->
+                    <use xlink:href="#rarrow" transform="translate(0 20)" />
+                </g>
+            </symbol>
+
+            <!-- two arrows pointing in opposite direction -->
+            <symbol id="fliparrows">
+                <g>
+                    <!-- top arrow -->
+                    <use xlink:href="#rarrow" transform="scale(0.5,0.5)" />
+
+                    <!-- bottom arrow -->
+                    <use xlink:href="#rarrow"
+                         transform="translate(50 10) scale(-0.5,0.5)" />
+                </g>
+            </symbol>
+
+            <!-- double right knot -->
+            <symbol id="rr">
+                <g>
+                    <use xlink:href="#knot" fill="var(--color)"
+                         transform="scale(0.5,0.5)" />
+                    <use xlink:href="#twoarrows" transform="scale(0.5, 0.5)" />
+                </g>
+
+            </symbol>
+
+            <!-- double left knot -->
+            <symbol id="ll">
+                <use xlink:href="#rr" transform="translate(50 0) scale(-1,1)" />
+            </symbol>
+
+            <!-- right left knot -->
+            <symbol id="rl">
+                <g>
+                    <use xlink:href="#knot" fill="var(--color)"
+                         transform="scale(0.5,0.5)" />
+                    <use xlink:href="#fliparrows" />
+                </g>
+            </symbol>
+
+            <!-- left right knot -->
+            <symbol id="lr">
+                <use xlink:href="#rl" transform="translate(50 0) scale(-1,1)" />
+            </symbol>
+
+        </defs>
+
+        <!-- row 1 -->
+        <svg class="string1">
+            <use xlink:href="#rr" />
+        </svg>
+        <svg class="string2">
+            <use xlink:href="#ll" transform="translate(100 0)" />
+        </svg>
+        <svg class="string3">
+            <use xlink:href="#rl" transform="translate(200 0)" />
+        </svg>
+        <svg class="string4">
+            <use xlink:href="#lr" transform="translate(300 0)" />
+        </svg>
+
+        <!-- row 2 -->
+        <svg class="string2">
+            <use xlink:href="#rr" transform="translate(0 100)" />
+        </svg>
+        <svg class="string3">
+            <use xlink:href="#ll" transform="translate(100 100)" />
+        </svg>
+        <svg class="string4">
+            <use xlink:href="#rl" transform="translate(200 100)" />
+        </svg>
+        <svg class="string1">
+            <use xlink:href="#lr" transform="translate(300 100)" />
+        </svg>
+
+        <!-- row 3 -->
+        <svg class="string3">
+            <use xlink:href="#rr" transform="translate(0 200)" />
+        </svg>
+        <svg class="string4">
+            <use xlink:href="#ll" transform="translate(100 200)" />
+        </svg>
+        <svg class="string1">
+            <use xlink:href="#rl" transform="translate(200 200)" />
+        </svg>
+        <svg class="string2">
+            <use xlink:href="#lr" transform="translate(300 200)" />
+        </svg>
+
+        <!-- row 4 -->
+        <svg class="string4">
+            <use xlink:href="#rr" transform="translate(0 300)" />
+        </svg>
+        <svg class="string1">
+            <use xlink:href="#ll" transform="translate(100 300)" />
+        </svg>
+        <svg class="string2">
+            <use xlink:href="#rl" transform="translate(200 300)" />
+        </svg>
+        <svg class="string3">
+            <use xlink:href="#lr" transform="translate(300 300)" />
+        </svg>
+
+    </svg>
+
+</body>
+</html>
+

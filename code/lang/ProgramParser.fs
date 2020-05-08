@@ -15,7 +15,7 @@ open Parser
 *)
 
 (* AST *) 
-type Knot = // four possible knots: user will type ABCD for simplicity
+type Knot = // four possible knots: user will type ABCD for simplicity -- maybe add an empty knot later?
 | RR of char // "A"
 | LL of char // "B"
 | RL of char // "C"
