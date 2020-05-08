@@ -20,13 +20,14 @@ type Row =
 | Row of Knot list
 type Pattern = // pattern has 1+ rows
 | Block of Row list 
-| Repeat of int * Pattern // (n, repeated block/pattern)
-| Seq of Pattern list
+| Repeat of int * Pattern list // (n, repeated block/pattern)
 
 (* PARSER HELPERS *)
-let pmany2sep p sep = pseq p (pmany1 (pright sep p)) (fun (x, xs) -> x::xs) <!> "pmany2sep"
+//let pmany2sep p sep = pseq p (pmany1 (pright sep p)) (fun (x, xs) -> x::xs) <!> "pmany2sep"
+// removes parens and returns whatever p returns
+let inParens p = pbetween (pchar '(') (pchar ')') p <!> "inParens"
 // read in repeat command --> ultimately ignores the results from this parser combinator
-let prepeat = pright (pstr "repeat") pws1 <!> "prepeat"
+let inRepeat p = inParens (pright (pstr "repeat ") p) <!> "inRepeat"
 
 (* GRAMMAR *)
 let rr = pchar 'A' |>> RR <!> "rr"
@@ -39,10 +40,10 @@ let knot = rr <|> ll <|> rl <|> lr <!> "knot"
 let row = pmany1 knot |>> Row <!> "row" // knots are assumed to be in order for now
 let block = pmany1 (pleft row pws0) |>> Block <!> "block"
 let repeat = // formatted like: (repeat 3 AAAA)
-    pbetween (pchar '(') (pchar ')') (pseq ((pright prepeat pdigit) |>> (fun c -> int (string c))) (pright pws1 pattern) (fun (n, e) -> (n, e)))
+    inRepeat (pseq (pdigit |>> (fun c -> int (string c))) (pmany1 (pright pws1 pattern)) (fun (n, e) -> (n, e)))
     |>> Repeat <!> "repeat"
-let seq = pmany2sep pattern pws0 |>> Seq <!> "seq"
-patternImpl := block <|> repeat <|> seq <!> "pattern"
+//let seq = pmany2sep pattern pws0 |>> Seq <!> "seq"
+patternImpl := block <|> repeat <!> "pattern"
 let grammar = pleft pattern peof <!> "grammar"
 
 let parse(s: string) : Pattern option =
