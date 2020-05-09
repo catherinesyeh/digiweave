@@ -9,17 +9,18 @@ open Parser
            |  (repeat num <comp>+)
   <block> ::= <row>+
     <row> ::= <knot>+
-   <knot> ::= RR | LL | RL | LR
+   <knot> ::= RR | LL | RL | LR | SKIP
     <num> ::= n in Z+ (aka. any positive integer)
 
 *)
 
 (* AST *) 
-type Knot = // four possible knots: user will type ABCD for simplicity -- maybe add an empty knot later?
+type Knot = // four possible knots: user will type ABCD for simplicity 
 | RR of char // "A"
 | LL of char // "B"
 | RL of char // "C"
 | LR of char // "D"
+| SKIP of char // "_" denotes empty knot (aka. skip string position)
 type Row =  
 | Row of Knot list
 type Component = // pattern has 1+ rows
@@ -39,9 +40,10 @@ let rr = pchar 'A' |>> RR <!> "rr"
 let ll = pchar 'B' |>> LL <!> "ll"
 let rl = pchar 'C' |>> RL <!> "rl"
 let lr = pchar 'D' |>> LR <!> "lr"
+let skip = pchar '_' |>> SKIP <!> "skip"
 
 let comp, compImpl = recparser()
-let knot = rr <|> ll <|> rl <|> lr <!> "knot"
+let knot = rr <|> ll <|> rl <|> lr <|> skip <!> "knot"
 let row = pmany1 knot |>> Row <!> "row" // knots are assumed to be in order for now
 let block = pmany1 (pleft row pws0) |>> Block <!> "block"
 let repeat = // formatted like: (repeat 3 AAAA)
