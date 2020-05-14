@@ -2,21 +2,41 @@
 module ProgramInterpreter
 open ProgramParser
 
-(** this is very wrong now lol
+(* Evaluates a Knot *)
+let keval e =
+    match e with
+        | LL _ -> "<< "
+        | RR _ -> ">> "
+        | RL _ -> "> "
+        | LR _ -> "< "
+        | SKIP _ -> "_ "
+
+(* Evaluates a Row *)
+let reval e =
+    match e with
+        | Row r ->
+            r |> List.map keval
+              |> List.fold (+) "\n"
+
+(* Evaluates a Component *)
+let rec ceval e =
+    match e with
+    | Block b ->
+        b |> List.map reval
+          |> List.fold (+) ""
+    | Repeat (n,c) ->
+        c |> List.map ceval
+          |> List.fold (+) ""
+          |> String.replicate n
+
+(* Evaluates a Pattern *)
 let eval e =
-    let rec evalrec e = // helper to actually parse the pattern
-        match e with
-        | Knot(k) ->
-            match k with
-            | LL -> "« "
-            | RR -> "» "
-            | RL -> "› "
-            | LR -> "‹ "
-        | Row(r) -> 
-            r |> (List.map evalrec) + "/n"
-    
-    for i in 1 .. e.Length do // print string numbers
-        printf "%d " i
-        printf "\n"
-    e |> List.map evalrec
-**)
+    match e with
+    | Pattern p ->
+        p |> List.map ceval
+          |> List.fold (+) ""
+
+//    for i in 1 .. e.Length do // print string numbers
+//        printf "%d " i
+//        printf "\n"
+//    e |> List.map evalrec
