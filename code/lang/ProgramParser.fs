@@ -4,10 +4,10 @@ open Parser
 
 (* Backus-Naur Grammar for Friendship Bracelet Pattern
 
-<pattern> ::= <comp>+
+<pattern> ::= <name><strings><comp>+
+   <name> ::= string
+<strings> ::= num <string>+
    <comp> ::= <block>
-           | (name <string>)
-           | (strings num <string>+)
            | (repeat num <comp>+)
  <string> ::= any valid alphanumeric string
   <block> ::= <row>+
@@ -31,11 +31,13 @@ type Row =
 | Row of Knot list // row has 1+ knots
 type Component = 
 | Block of Row list // pattern has 1+ rows
-| Name of string // name of pattern
-| Strings of int * string list // list of strings + colors in their starting order
 | Repeat of int * Component list // (n, repeated block/pattern)
+type Name =
+| Name of string // name of pattern
+type Strings =
+| Strings of int * string list // list of strings + colors in their starting order
 type Pattern =
-| Pattern of Component list // pattern is made out of components
+| Pattern of Name * Strings * Component list // pattern is made out of components
 
 (* PARSER HELPERS *)
 // removes parens and returns whatever p returns
@@ -50,6 +52,8 @@ let nameHelper p = inParens (pright (pstr "name ") p) <!> "nameHelper"
 let word = pmany1 (pletter <|> pdigit) |>> stringify <!> "word"
 // parse a number and a list of 'p'
 let numAndList p = pseq (pleft (pdigit |>> (fun c -> int (string c))) pws1) (pmany1 (pleft p pws0)) (fun (n, e) -> (n, e))
+// parses a white space or a new line
+let wsOrNl p = pleft p ((pws0 |>> stringify) <|> pnl)
 
 (* GRAMMAR *)
 let rr = pchar 'A' |>> RR <!> "rr"
@@ -62,7 +66,7 @@ let comp, compImpl = recparser()
 // components
 let knot = rr <|> ll <|> rl <|> lr <|> skip <!> "knot"
 let row = pmany1 knot |>> Row <!> "row" // knots are assumed to be in order
-let block = pmany1 (pleft row ((pws0 |>> stringify) <|> pnl)) |>> Block <!> "block"
+let block = pmany1 (wsOrNl row) |>> Block <!> "block"
 
 // operations
 let name = nameHelper word |>> Name <!> "name" // formatted like: (name MYPATTERN)
@@ -70,8 +74,9 @@ let strings = stringHelper (numAndList word) |>> Strings <!> "strings" // format
 let repeat = inRepeat (numAndList comp) |>> Repeat <!> "repeat" // formatted like: (repeat 3 AAAA)
 
 // big picture stuff
-let pattern = pmany1 (pleft comp ((pws0 |>> stringify) <|> pnl)) |>> Pattern <!> "expr"
-compImpl := block <|> name <|> strings <|> repeat <!> "pattern"
+let patternHelper = pmany1 (wsOrNl comp)
+let pattern = pseq3 (wsOrNl name) (wsOrNl strings) (wsOrNl patternHelper) (fun (a, b, c) -> (a, b, c)) |>> Pattern <!> "expr"
+compImpl := block <|> repeat <!> "pattern"
 let grammar = pleft pattern peof <!> "grammar"
 
 // actually parse the expression now :)

@@ -1,7 +1,7 @@
 (* This program is an evaluator for friendship bracelet patterns. *)
 module ProgramInterpreter
 open ProgramParser
-
+(*
 (* Evaluates a Knot *)
 let keval e =
     match e with
@@ -39,8 +39,4 @@ let eval e =
     | Pattern p ->
         p |> List.map ceval
           |> List.fold (+) ""
-
-//    for i in 1 .. e.Length do // print string numbers
-//        printf "%d " i
-//        printf "\n"
-//    e |> List.map evalrec
+          *)

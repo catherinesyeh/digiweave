@@ -125,6 +125,15 @@ let pseq(p1: Parser<'a>)(p2: Parser<'b>)(f: 'a*'b -> 'c) : Parser<'c> =
       )
   )
 
+let pseq3(p1: Parser<'a>)(p2: Parser<'b>)(p3: Parser<'c>)(f: 'a*'b*'c -> 'd) : Parser<'d> =
+  pbind p1 (fun a ->
+      pbind p2 (fun b ->
+          pbind p3 (fun c -> 
+            presult (f (a,b,c))
+          )
+      )
+  )
+
 let psat(f: char -> bool) : Parser<char> =
   pbind pitem (fun c -> if (f c) then presult c else pzero)
 
