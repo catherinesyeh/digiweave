@@ -70,7 +70,7 @@ let strings = stringHelper (numAndList word) |>> Strings <!> "strings" // format
 let repeat = inRepeat (numAndList comp) |>> Repeat <!> "repeat" // formatted like: (repeat 3 AAAA)
 
 // big picture stuff
-let pattern = pmany1 (pleft comp pws0) |>> Pattern <!> "expr"
+let pattern = pmany1 (pleft comp ((pws0 |>> stringify) <|> pnl)) |>> Pattern <!> "expr"
 compImpl := block <|> name <|> strings <|> repeat <!> "pattern"
 let grammar = pleft pattern peof <!> "grammar"
 
