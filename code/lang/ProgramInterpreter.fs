@@ -28,6 +28,10 @@ let rec ceval e =
         c |> List.map ceval
           |> List.fold (+) ""
           |> String.replicate n
+    | Name s ->
+        "Pattern Name: " + s + "\n"
+    | Strings (n,s) ->
+        "Colors: " + (s |> List.fold (fun acc x -> acc + x + ", ") "")
 
 (* Evaluates a Pattern *)
 let eval e =
