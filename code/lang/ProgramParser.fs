@@ -62,7 +62,7 @@ let comp, compImpl = recparser()
 // components
 let knot = rr <|> ll <|> rl <|> lr <|> skip <!> "knot"
 let row = pmany1 knot |>> Row <!> "row" // knots are assumed to be in order
-let block = pmany1 (pleft row pws0) |>> Block <!> "block"
+let block = pmany1 (pleft row ((pws0 |>> stringify) <|> pnl)) |>> Block <!> "block"
 
 // operations
 let name = nameHelper word |>> Name <!> "name" // formatted like: (name MYPATTERN)
