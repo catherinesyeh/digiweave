@@ -18,6 +18,6 @@ let main argv =
 
     let input = argv.[0]
     match parse input with // try to parse expression
-    | Some ast -> printfn "%A" ast
+    | Some ast -> printfn "%A" (eval ast)
     | None    -> printfn "Invalid expression."
     0 // return an integer exit code

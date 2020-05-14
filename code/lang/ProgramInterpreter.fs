@@ -1,7 +1,7 @@
 (* This program is an evaluator for friendship bracelet patterns. *)
 module ProgramInterpreter
 open ProgramParser
-(*
+
 (* Evaluates a Knot *)
 let keval e =
     match e with
@@ -12,31 +12,32 @@ let keval e =
         | SKIP _ -> "_ "
 
 (* Evaluates a Row *)
-let reval e =
+let reval e s =
     match e with
         | Row r ->
             r |> List.map keval
               |> List.fold (+) "\n"
 
 (* Evaluates a Component *)
-let rec ceval e =
+let rec ceval e s =
     match e with
     | Block b ->
-        b |> List.map reval
+        b |> List.map (fun x -> reval x s)
           |> List.fold (+) ""
     | Repeat (n,c) ->
-        c |> List.map ceval
+        c |> List.map (fun x -> ceval x s)
           |> List.fold (+) ""
           |> String.replicate n
-    | Name s ->
-        "Pattern Name: " + s + "\n"
-    | Strings (n,s) ->
-        "Colors: " + (s |> List.fold (fun acc x -> acc + x + ", ") "")
+
+(* Evaluates a Name *)
+let neval e =
+    match e with
+    | Name name ->
+        "Pattern Name: " + name + "\n"
 
 (* Evaluates a Pattern *)
 let eval e =
     match e with
-    | Pattern p ->
-        p |> List.map ceval
-          |> List.fold (+) ""
-          *)
+    | Pattern (name, strings, components) ->
+        neval name + (components |> List.map (fun x -> ceval x strings)
+                                 |> List.fold (+) "")
