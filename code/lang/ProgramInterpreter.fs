@@ -44,56 +44,56 @@ let rec kstringshelper row s i output =
       kstringshelper newrow news (i+1) (output + knot)
 
 (* Evaluates a Row *)
-let reval e s =
+let reval e s num =
     match e with
     | Row r ->
         let newstrings, output = kstringshelper r s 0 ""
-        (newstrings, "\n" + output)
+        (newstrings, "\n" + (num |> string) + "   " + output)
 
 (* Evaluates a Block *)
-let rec beval (e: Row list) s output =
+let rec beval (e: Row list) s output num =
     if (e.IsEmpty) then // finished the block so return results
-      (s, output)
+      (s, output, num)
     else
-      let tup = reval e.Head s // process a row
+      let tup = reval e.Head s num // process a row
       match tup with
       | (newcolors, news) ->
-          beval e.Tail newcolors (List.append output [news])
+          beval e.Tail newcolors (List.append output [news]) (num + 1)
 
 (* Evaluates a Component *)
-let rec ceval e s =
+let rec ceval e s num =
     match e with
     | Block b -> // found a block
-        let helper = beval b s []
+        let helper = beval b s [] num
         match helper with
-        | (colors, output) ->
+        | (colors, output, newnum) ->
             let out = List.fold (+) "" output
-            (colors, out)
+            (colors, out, newnum)
     | Repeat (n,c) -> // found a repeat operation
-        repeathelper n c s ""
+        repeathelper n c s "" num
 
 // perform repeat operation
-and repeathelper n e s acc =
+and repeathelper n e s acc num =
     if n = 0 then // finished so return results
-      (s, acc)
+      (s, acc, num)
     else // repeat once and recurse
-      let result = clisthelper e s ""
+      let result = clisthelper e s "" num
       match result with
-      | (colors, output) ->
+      | (colors, output, newnum) ->
           let out = acc + output
-          repeathelper (n-1) e colors out
+          repeathelper (n-1) e colors out newnum
  
 // evaluates list of components
-and clisthelper e s acc =
+and clisthelper e s acc num =
     if (e.IsEmpty) then // no more components in the list
-      (s, acc)
+      (s, acc, num)
     else // process next component
-      let result = ceval e.Head s
+      let result = ceval e.Head s num
       let newe = e.Tail
       match result with
-      | (colors, output) ->
+      | (colors, output, newnum) ->
           let out = acc + output
-          clisthelper newe colors out
+          clisthelper newe colors out newnum
 
 (* Evaluates a Strings *)
 let seval e =
@@ -112,7 +112,7 @@ let eval e =
     match e with
     | Pattern (name, strings, components) ->
         // evaluate the components in the pattern
-        let comps = clisthelper components (seval strings) ""
+        let comps = clisthelper components (seval strings) "" 1
         match comps with
-        | (colors, fincomp) -> // put together name and evaluated components for fully evaluated pattern
-            neval name + fincomp
+        | (colors, fincomp, _) -> // put together name and evaluated components for fully evaluated pattern
+            neval name + "\nRow" + fincomp
