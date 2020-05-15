@@ -5,11 +5,11 @@ open ProgramParser
 (* Evaluates a Knot *)
 let keval e s i =
     match e with
-        | RR _ -> List.item(i) s + " >> "
-        | LL _ -> List.item(i+1) s + " << "
-        | RL _ -> List.item(i) s + " > "
-        | LR _ -> List.item(i+1) s + " < "
-        | SKIP _ -> " _ "
+    | RR _ -> List.item(i) s + " >> "
+    | LL _ -> List.item(i+1) s + " << "
+    | RL _ -> List.item(i) s + " > "
+    | LR _ -> List.item(i+1) s + " < "
+    | SKIP _ -> " _ "
 
 let rec swap acc s i =
     if (List.length acc) < i then
@@ -25,11 +25,11 @@ let rec swap acc s i =
 
 let kstringshelperhelper e s i =
     match e with
-        | RR _ -> swap [] s i
-        | LL _ -> swap [] s (i-1)
-        | RL _ -> s
-        | LR _ -> s
-        | SKIP _ -> s
+    | RR _ -> swap [] s i
+    | LL _ -> swap [] s (i-1)
+    | RL _ -> s
+    | LR _ -> s
+    | SKIP _ -> s
 
 let rec kstringshelper row s i =
     if (List.isEmpty row) then
@@ -42,16 +42,27 @@ let rec kstringshelper row s i =
 (* Evaluates a Row *)
 let reval e s =
     match e with
+    | Row r ->
+        let newstrings = kstringshelper r s 0
+        r |> List.mapi (fun i x -> keval x newstrings i)
+          |> List.fold (+) "\n"
+
+let rec cevalhelper e s =
+    if (List.isEmpty e) then
+        s
+    else
+        match e.Head with
         | Row r ->
-            let newstrings = kstringshelper r s 0
-            r |> List.mapi (fun i x -> keval x newstrings i)
-              |> List.fold (+) "\n"
+            let news = kstringshelper r s 0
+            let newe = e.Tail
+            cevalhelper newe news
 
 (* Evaluates a Component *)
 let rec ceval e s =
     match e with
     | Block b ->
-        b |> List.map (fun x -> reval x s)
+        let newstrings = cevalhelper b s
+        b |> List.map (fun x -> reval x newstrings)
           |> List.fold (+) ""
     | Repeat (n,c) ->
         c |> List.map (fun x -> ceval x s)
