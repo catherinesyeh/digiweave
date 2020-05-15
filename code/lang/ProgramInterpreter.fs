@@ -50,24 +50,46 @@ let reval e s =
 
 let rec cevalhelper (e: Row list) s output =
     if (e.IsEmpty) then
-      output
+      (s, output)
     else
-        let tup = reval e.Head s
-        match tup with
-        | (newcolors, news) ->
-            for color in newcolors do printfn "%s" color
-            cevalhelper e.Tail newcolors (List.append output [news])
+      let tup = reval e.Head s
+      match tup with
+      | (newcolors, news) ->
+          for color in newcolors do printfn "%s" color
+          cevalhelper e.Tail newcolors (List.append output [news])
 
 (* Evaluates a Component *)
 let rec ceval e s =
     match e with
     | Block b ->
-          cevalhelper b s []
-          |> List.fold (+) ""
+        let helper = cevalhelper b s []
+        match helper with
+        | (colors, output) ->
+            let out = List.fold (+) "" output
+            (colors, out)
     | Repeat (n,c) ->
-        c |> List.map (fun x -> ceval x s)
-          |> List.fold (+) ""
-          |> String.replicate n
+        repeathelper n c s ""
+
+and repeathelper n e s acc =
+    if n = 0 then
+      (s, acc)
+    else
+      let result = clisthelper e s ""
+      match result with
+      | (colors, output) ->
+          let out = acc + output
+          repeathelper (n-1) e colors out
+           
+and clisthelper e s acc =
+    if (e.IsEmpty) then
+      (s, acc)
+    else
+      let result = ceval e.Head s
+      let newe = e.Tail
+      match result with
+      | (colors, output) ->
+          let out = acc + output
+          clisthelper newe colors out
 
 (* Evaluates a Strings *)
 let seval e =
@@ -85,5 +107,7 @@ let neval e =
 let eval e =
     match e with
     | Pattern (name, strings, components) ->
-        neval name + (components |> List.map (fun x -> ceval x (seval strings))
-                                 |> List.fold (+) "")
+        let comps = clisthelper components (seval strings) ""
+        match comps with
+        | (colors, fincomp) ->
+            neval name + fincomp
