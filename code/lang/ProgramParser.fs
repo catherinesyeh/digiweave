@@ -37,7 +37,7 @@ type Name =
 type Strings =
 | Strings of int * string list // list of strings + colors in their starting order
 type Pattern =
-| Pattern of Name * Strings * Component list // pattern is made out of components
+| Pattern of Name * Strings * Component list // pattern must have a name, list of strings, and 1+ components
 
 (* PARSER HELPERS *)
 // removes parens and returns whatever p returns
