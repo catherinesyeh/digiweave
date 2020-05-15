@@ -1,0 +1,5 @@
+(name ARROW)
+
+(strings 8 LightPink LightSeaGreen LightSeaGreen LightPink LightPink LightSeaGreen LightSeaGreen LightPink)
+
+(repeat 2 A_A_B_B _A_A_B_)

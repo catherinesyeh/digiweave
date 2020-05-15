@@ -1,0 +1,12 @@
+(name HEART)
+
+(strings 8 PeachPuff PaleVioletRed PeachPuff PaleVioletRed PaleVioletRed PeachPuff PaleVioletRed PeachPuff)
+
+C_A_B_D 
+_A_A_B_
+B_A_B_A
+_A_A_B_
+A_A_B_B 
+_A_A_B_
+C_A_B_D 
+_D_A_C_
