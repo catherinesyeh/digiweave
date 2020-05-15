@@ -55,7 +55,6 @@ let rec cevalhelper (e: Row list) s output =
       let tup = reval e.Head s
       match tup with
       | (newcolors, news) ->
-          for color in newcolors do printfn "%s" color
           cevalhelper e.Tail newcolors (List.append output [news])
 
 (* Evaluates a Component *)
