@@ -19,14 +19,14 @@ let rec swap acc s i =
     else
       let temp1 = [List.head s]
       let news1 = List.tail s
-      let temp2 = [List.head s]
+      let temp2 = [List.head news1]
       let news2 = List.tail news1
       List.append (List.append acc (List.append temp2 temp1)) news2
 
 let kstringshelperhelper e s i =
     match e with
     | RR _ -> swap [] s i
-    | LL _ -> swap [] s (i-1)
+    | LL _ -> swap [] s i
     | RL _ -> s
     | LR _ -> s
     | SKIP _ -> s
@@ -44,25 +44,25 @@ let reval e s =
     match e with
     | Row r ->
         let newstrings = kstringshelper r s 0
-        r |> List.mapi (fun i x -> keval x newstrings i)
+        r |> List.mapi (fun i x -> keval x s i)
           |> List.fold (+) "\n"
+          |> (fun a b -> (a, b)) newstrings
 
-let rec cevalhelper e s =
-    if (List.isEmpty e) then
-        s
+let rec cevalhelper (e: Row list) s output =
+    if (e.IsEmpty) then
+      output
     else
-        match e.Head with
-        | Row r ->
-            let news = kstringshelper r s 0
-            let newe = e.Tail
-            cevalhelper newe news
+        let tup = reval e.Head s
+        match tup with
+        | (newcolors, news) ->
+            for color in newcolors do printfn "%s" color
+            cevalhelper e.Tail newcolors (List.append output [news])
 
 (* Evaluates a Component *)
 let rec ceval e s =
     match e with
     | Block b ->
-        let newstrings = cevalhelper b s
-        b |> List.map (fun x -> reval x newstrings)
+          cevalhelper b s []
           |> List.fold (+) ""
     | Repeat (n,c) ->
         c |> List.map (fun x -> ceval x s)
