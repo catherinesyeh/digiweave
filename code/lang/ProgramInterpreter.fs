@@ -31,22 +31,21 @@ let kstringshelperhelper e s i =
     | LR _ -> s
     | SKIP _ -> s
 
-let rec kstringshelper row s i =
+let rec kstringshelper row s i output =
     if (List.isEmpty row) then
-      s
+      (s, output)
     else
       let news = kstringshelperhelper (List.head row) s i
+      let knot = keval (List.head row) s i
       let newrow = List.tail row
-      kstringshelper newrow news (i+1)
+      kstringshelper newrow news (i+1) (output + knot)
 
 (* Evaluates a Row *)
 let reval e s =
     match e with
     | Row r ->
-        let newstrings = kstringshelper r s 0
-        r |> List.mapi (fun i x -> keval x s i)
-          |> List.fold (+) "\n"
-          |> (fun a b -> (a, b)) newstrings
+        let (newstrings, output) = kstringshelper r s 0 ""
+        (newstrings, "\n" + output)
 
 let rec cevalhelper (e: Row list) s output =
     if (e.IsEmpty) then
