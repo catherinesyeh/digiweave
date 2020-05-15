@@ -119,7 +119,7 @@ type TestClass () =
     (* TEST FILE INPUT *)
     [<TestMethod>]
     // test if example-1.fbp with a nested repeat parses correctly
-    member this.Example1ParsesCorrectly () =
+    member this.File1ParsesCorrectly () =
         let file = prefix + "/examples/example-1.fbp"
         let input = File.ReadAllText file
         let expected = 
@@ -130,6 +130,52 @@ type TestClass () =
                     [Repeat(
                         6, [Block[Row[RR('A'); RR('A'); 
                         RR('A'); RR('A'); RR('A')]]])])
+        let result = parse input
+        match result with
+        | Some ws ->
+            Assert.AreEqual(expected, ws)
+        | None ->
+            Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if example-2.fbp with a nested repeat parses correctly
+    member this.File2ParsesCorrectly () =
+        let file = prefix + "/examples/example-2.fbp"
+        let input = File.ReadAllText file
+        let expected = 
+            Pattern(
+                Name "ARROW", Strings(
+                    8, ["LightPink"; "LightSeaGreen"; "LightSeaGreen"; "LightPink";
+                    "LightPink"; "LightSeaGreen"; "LightSeaGreen"; "LightPink"]),
+                    [Repeat(
+                        2, [Block
+                        [Row [RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B'];
+                        Row [SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; LL 'B'; SKIP '_']]])])
+        let result = parse input
+        match result with
+        | Some ws ->
+            Assert.AreEqual(expected, ws)
+        | None ->
+            Assert.IsTrue false
+
+    // test if example-3.fbp with a nested repeat parses correctly
+    member this.File3ParsesCorrectly () =
+        let file = prefix + "/examples/example-3.fbp"
+        let input = File.ReadAllText file
+        let expected = 
+            Pattern(
+                Name "HEART", Strings(
+                    8, ["PeachPuff"; "PaleVioletRed"; "PeachPuff"; "PaleVioletRed";
+                    "PaleVioletRed"; "PeachPuff"; "PaleVioletRed"; "PeachPuff"]),
+                    [Block
+                        [Row [RL 'C'; SKIP '_'; RR 'A'; SKIP '_'; LL 'B'; SKIP '_'; LR 'D'];
+                        Row [SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; LL 'B'; SKIP '_'];
+                        Row [LL 'B'; SKIP '_'; RR 'A'; SKIP '_'; LL 'B'; SKIP '_'; RR 'A'];
+                        Row [SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; LL 'B'; SKIP '_'];
+                        Row [RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B'];
+                        Row [SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; LL 'B'; SKIP '_'];
+                        Row [RL 'C'; SKIP '_'; RR 'A'; SKIP '_'; LL 'B'; SKIP '_'; LR 'D'];
+                        Row [SKIP '_'; LR 'D'; SKIP '_'; RR 'A'; SKIP '_'; RL 'C'; SKIP '_']]])
         let result = parse input
         match result with
         | Some ws ->
