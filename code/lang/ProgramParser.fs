@@ -4,7 +4,7 @@ open Parser
 
 (* Backus-Naur Grammar for Friendship Bracelet Pattern
 
-<pattern> ::= <name><strings><comp>+
+<pattern> ::= <name> <strings> <comp>+
    <name> ::= string
 <strings> ::= num <string>+
    <comp> ::= <block>
@@ -49,13 +49,14 @@ let stringHelper p = inParens (pright (pstr "strings ") p) <!> "stringHelper"
 // read in name command --> ultimately ignores the results from this parser combinator
 let nameHelper p = inParens (pright (pstr "name ") p) <!> "nameHelper"
 // read a word as a series of characters and turn it into a string
-let word = pmany1 (pletter <|> pdigit) |>> stringify <!> "word"
+let word = pmany1 (pletter <|> pdigit <|> pchar '#') |>> stringify <!> "word"
 // parse a number and a list of 'p'
-let numAndList p = pseq (pleft (pdigit |>> (fun c -> int (string c))) pws1) (pmany1 (pleft p pws0)) (fun (n, e) -> (n, e))
+let numAndList p = pseq (pleft (pdigit |>> (fun c -> int (string c))) pws1) (pmany1 (pleft p pws0)) (fun (n, e) -> (n, e)) <!> "numAndList"
 // parses a white space or a new line
-let wsOrNl p = pleft p ((pws0 |>> stringify) <|> pnl)
+let wsOrNl p = pleft p ((pws0 |>> stringify) <|> pnl) <!> "wsOrNl"
 
 (* GRAMMAR *)
+// knots
 let rr = pchar 'A' |>> RR <!> "rr"
 let ll = pchar 'B' |>> LL <!> "ll"
 let rl = pchar 'C' |>> RL <!> "rl"
@@ -74,9 +75,9 @@ let strings = stringHelper (numAndList word) |>> Strings <!> "strings" // format
 let repeat = inRepeat (numAndList comp) |>> Repeat <!> "repeat" // formatted like: (repeat 3 AAAA)
 
 // big picture stuff
-let patternHelper = pmany1 (wsOrNl comp)
-let pattern = pseq3 (wsOrNl name) (wsOrNl strings) (wsOrNl patternHelper) (fun (a, b, c) -> (a, b, c)) |>> Pattern <!> "expr"
-compImpl := block <|> repeat <!> "pattern"
+let patternHelper = pmany1 (wsOrNl comp) <!> "pattern helper"
+let pattern = pseq3 (wsOrNl name) (wsOrNl strings) (wsOrNl patternHelper) (fun (a, b, c) -> (a, b, c)) |>> Pattern <!> "pattern"
+compImpl := block <|> repeat <!> "comp"
 let grammar = pleft pattern peof <!> "grammar"
 
 // actually parse the expression now :)
