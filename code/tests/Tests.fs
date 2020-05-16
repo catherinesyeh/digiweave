@@ -4,6 +4,7 @@ open System
 open System.IO
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open ProgramParser
+open ProgramInterpreter
 
 [<TestClass>]
 type TestClass () =
@@ -12,17 +13,17 @@ type TestClass () =
     let prefix = 
            Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.FullName
 
-    (* TEST STRING INPUT *)
+    (* PARSER TESTS *)
 
     [<TestMethod>]
     // test if a pattern with 1 row parses correctly
     member this.SingleRowParsesCorrectly () =
-        let input = "(name SINGLEROW) (strings 3 red blue green) AAA"
+        let input = "(name SINGLEROW) (strings 3 red blue green) AA"
         let expected = 
             Pattern(
                 Name "SINGLEROW", Strings(
                     3, ["red"; "blue"; "green"]), 
-                    [Block[Row[RR('A'); RR('A'); RR('A')]]])
+                    [Block[Row[RR('A'); RR('A')]]])
         let result = parse input
         match result with
         | Some ws ->
@@ -33,12 +34,12 @@ type TestClass () =
     [<TestMethod>]
     // test if a pattern with 2 rows parses correctly
     member this.TwoRowsParsesCorrectly () =
-        let input = "(name TWOROWS) (strings 3 black gray white) ABA C_D"
+        let input = "(name TWOROWS) (strings 3 black gray white) AB CD"
         let expected = 
             Pattern(
                 Name "TWOROWS", Strings(
                     3, ["black"; "gray"; "white"]), 
-                    [Block[Row[RR('A'); LL('B'); RR('A')]; Row[RL('C'); SKIP('_'); LR('D')]]])
+                    [Block[Row[RR('A'); LL('B')]; Row[RL('C'); LR('D')]]])
         let result = parse input
         match result with
         | Some ws ->
@@ -49,13 +50,13 @@ type TestClass () =
     [<TestMethod>]
     // test if a pattern with repeat parses correctly
     member this.RepeatParsesCorrectly () =
-        let input = "(name REPEAT) (strings 4 orange pink pink orange) (repeat 2 ABCD)"
+        let input = "(name REPEAT) (strings 4 orange pink pink orange) (repeat 2 ABC)"
         let expected = 
             Pattern(
                 Name "REPEAT", Strings(
                     4, ["orange"; "pink"; "pink"; "orange"]), 
                     [Repeat(
-                        2, [Block[Row[RR('A'); LL('B'); RL('C'); LR('D')]]])])
+                        2, [Block[Row[RR('A'); LL('B'); RL('C')]]])])
         let result = parse input
         match result with
         | Some ws ->
@@ -66,14 +67,14 @@ type TestClass () =
     [<TestMethod>]
     // test if a pattern with a repeat followed by block parses correctly
     member this.RepeatAndBlockParsesCorrectly () =
-        let input = "(name REPEATANDBLOCK) (strings 4 orange pink pink orange) (repeat 2 ABCD) _A_A"
+        let input = "(name REPEATANDBLOCK) (strings 4 orange pink pink orange) (repeat 2 BCD) _A_"
         let expected = 
             Pattern(
                 Name "REPEATANDBLOCK", Strings(
                     4, ["orange"; "pink"; "pink"; "orange"]), 
                     [Repeat(
-                        2, [Block[Row[RR('A'); LL('B'); RL('C'); LR('D')]]]);
-                    Block[Row[SKIP('_'); RR('A'); SKIP('_'); RR('A')]]])
+                        2, [Block[Row[LL('B'); RL('C'); LR('D')]]]);
+                    Block[Row[SKIP('_'); RR('A'); SKIP('_')]]])
         let result = parse input
         match result with
         | Some ws ->
@@ -84,13 +85,13 @@ type TestClass () =
     [<TestMethod>]
     // test if a pattern with a block followed by repeat parses correctly
     member this.BlockAndRepeatParsesCorrectly () =
-        let input = "(name BLOCKANDREPEAT) (strings 4 orange pink pink orange) _A_A (repeat 2 ABCD)"
+        let input = "(name BLOCKANDREPEAT) (strings 4 orange pink pink orange) _A_ (repeat 2 BCD)"
         let expected = 
             Pattern(
                 Name "BLOCKANDREPEAT", Strings(
                     4, ["orange"; "pink"; "pink"; "orange"]), 
-                    [Block[Row[SKIP('_'); RR('A'); SKIP('_'); RR('A')]]; 
-                    Repeat(2, [Block[Row[RR('A'); LL('B'); RL('C'); LR('D')]]])])
+                    [Block[Row[SKIP('_'); RR('A'); SKIP('_')]]; 
+                    Repeat(2, [Block[Row[LL('B'); RL('C'); LR('D')]]])])
         let result = parse input
         match result with
         | Some ws ->
@@ -101,14 +102,14 @@ type TestClass () =
     [<TestMethod>]
     // test if a pattern with a nested repeat parses correctly
     member this.NestedRepeatParsesCorrectly () =
-        let input = "(name NESTEDREPEAT) (strings 4 orange pink pink orange) (repeat 2 ABCD (repeat 4 AAAA))"
+        let input = "(name NESTEDREPEAT) (strings 4 orange pink pink orange) (repeat 2 ABC (repeat 4 AAA))"
         let expected = 
             Pattern(
                 Name "NESTEDREPEAT", Strings(
                     4, ["orange"; "pink"; "pink"; "orange"]),
                     [Repeat(
-                        2, [Block[Row[RR('A'); LL('B'); RL('C'); LR('D')]];
-                        Repeat(4, [Block[Row[RR('A'); RR('A'); RR('A'); RR('A')]]])])])
+                        2, [Block[Row[RR('A'); LL('B'); RL('C')]];
+                        Repeat(4, [Block[Row[RR('A'); RR('A'); RR('A')]]])])])
         let result = parse input
         match result with
         | Some ws ->
@@ -116,9 +117,8 @@ type TestClass () =
         | None ->
             Assert.IsTrue false
 
-    (* TEST FILE INPUT *)
     [<TestMethod>]
-    // test if example-1.fbp with a nested repeat parses correctly
+    // test if example-1.fbp parses correctly
     member this.File1ParsesCorrectly () =
         let file = prefix + "/examples/example-1.fbp"
         let input = File.ReadAllText file
@@ -138,7 +138,7 @@ type TestClass () =
             Assert.IsTrue false
 
     [<TestMethod>]
-    // test if example-2.fbp with a nested repeat parses correctly
+    // test if example-2.fbp parses correctly
     member this.File2ParsesCorrectly () =
         let file = prefix + "/examples/example-2.fbp"
         let input = File.ReadAllText file
@@ -158,7 +158,8 @@ type TestClass () =
         | None ->
             Assert.IsTrue false
 
-    // test if example-3.fbp with a nested repeat parses correctly
+    [<TestMethod>]
+    // test if example-3.fbp parses correctly
     member this.File3ParsesCorrectly () =
         let file = prefix + "/examples/example-3.fbp"
         let input = File.ReadAllText file
@@ -182,3 +183,124 @@ type TestClass () =
             Assert.AreEqual(expected, ws)
         | None ->
             Assert.IsTrue false
+
+    (* EVALUATOR TESTS *)
+
+    [<TestMethod>]
+    // test if single row evaluates correctly
+    member this.SingleRowEvaluatesCorrectly () =
+        let input = "(name SINGLEROW) (strings 3 red blue green) AA"
+        let expected = 
+            "Pattern Name: SINGLEROW\n\nRow" +
+            "\n1   red >> red >> "
+
+        match parse input with
+            | Some ast -> 
+                let result = eval ast
+                Assert.AreEqual(expected, result)
+            | None    -> 
+                Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if repeat evaluates correctly
+    member this.RepeatEvaluatesCorrectly () =
+        let input = "(name REPEAT) (strings 4 orange pink pink orange) (repeat 3 BBB)"
+        let expected = 
+            "Pattern Name: REPEAT\n\nRow" +
+            "\n1   pink << pink << orange << " +
+            "\n2   pink << orange << orange << " +
+            "\n3   orange << orange << pink << "
+
+        match parse input with
+            | Some ast -> 
+                let result = eval ast
+                Assert.AreEqual(expected, result)
+            | None    -> 
+                Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if nestedrepeat evaluates correctly
+    member this.NestedRepeatEvaluatesCorrectly () =
+        let input = "(name NESTEDREPEAT) (strings 4 orange pink pink orange) (repeat 2 AAA (repeat 4 BBB))"
+        let expected = 
+            "Pattern Name: NESTEDREPEAT\n\nRow" +
+            "\n1   orange >> orange >> orange >> " +
+            "\n2   pink << orange << orange << " +
+            "\n3   orange << orange << pink << " +
+            "\n4   orange << pink << pink << " +
+            "\n5   pink << pink << orange << " +
+            "\n6   pink >> pink >> pink >> " +
+            "\n7   orange << orange << pink << " +
+            "\n8   orange << pink << pink << " +
+            "\n9   pink << pink << orange << " +
+            "\n10   pink << orange << orange << "
+
+        match parse input with
+            | Some ast -> 
+                let result = eval ast
+                Assert.AreEqual(expected, result)
+            | None    -> 
+                Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if example-1.fbp evaluates correctly
+    member this.File1EvaluatesCorrectly () =
+        let file = prefix + "/examples/example-1.fbp"
+        let input = File.ReadAllText file
+        let expected = 
+            "Pattern Name: 2ROWS\n\nRow" +
+            "\n1   CornflowerBlue >> CornflowerBlue >> CornflowerBlue >> CornflowerBlue >> CornflowerBlue >> " +
+            "\n2   CornflowerBlue >> CornflowerBlue >> CornflowerBlue >> CornflowerBlue >> CornflowerBlue >> " +
+            "\n3   Coral >> Coral >> Coral >> Coral >> Coral >> " +
+            "\n4   Coral >> Coral >> Coral >> Coral >> Coral >> " +
+            "\n5   BurlyWood >> BurlyWood >> BurlyWood >> BurlyWood >> BurlyWood >> " +
+            "\n6   BurlyWood >> BurlyWood >> BurlyWood >> BurlyWood >> BurlyWood >> "
+
+        match parse input with
+            | Some ast -> 
+                let result = eval ast
+                Assert.AreEqual(expected, result)
+            | None    -> 
+                Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if example-2.fbp evaluates correctly
+    member this.File2EvaluatesCorrectly () =
+        let file = prefix + "/examples/example-2.fbp"
+        let input = File.ReadAllText file
+        let expected = 
+            "Pattern Name: ARROW\n\nRow" +
+            "\n1   LightPink >>  _ LightSeaGreen >>  _ LightSeaGreen <<  _ LightPink << " +
+            "\n2    _ LightPink >>  _ LightSeaGreen >>  _ LightPink <<  _ " +
+            "\n3   LightSeaGreen >>  _ LightPink >>  _ LightPink <<  _ LightSeaGreen << " +
+            "\n4    _ LightSeaGreen >>  _ LightPink >>  _ LightSeaGreen <<  _ "
+
+        match parse input with
+            | Some ast -> 
+                let result = eval ast
+                Assert.AreEqual(expected, result)
+            | None    -> 
+                Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if example-3.fbp evaluates correctly
+    member this.File3EvaluatesCorrectly () =
+        let file = prefix + "/examples/example-3.fbp"
+        let input = File.ReadAllText file
+        let expected = 
+            "Pattern Name: HEART\n\nRow" +
+            "\n1   PeachPuff >  _ PeachPuff >>  _ PeachPuff <<  _ PeachPuff < " +
+            "\n2    _ PaleVioletRed >>  _ PeachPuff >>  _ PaleVioletRed <<  _ " +
+            "\n3   PaleVioletRed <<  _ PaleVioletRed >>  _ PaleVioletRed <<  _ PaleVioletRed >> " +
+            "\n4    _ PeachPuff >>  _ PaleVioletRed >>  _ PeachPuff <<  _ " +
+            "\n5   PaleVioletRed >>  _ PeachPuff >>  _ PeachPuff <<  _ PaleVioletRed << " +
+            "\n6    _ PaleVioletRed >>  _ PeachPuff >>  _ PaleVioletRed <<  _ " +
+            "\n7   PeachPuff >  _ PaleVioletRed >>  _ PaleVioletRed <<  _ PeachPuff < " +
+            "\n8    _ PeachPuff <  _ PaleVioletRed >>  _ PeachPuff >  _ "
+
+        match parse input with
+            | Some ast -> 
+                let result = eval ast
+                Assert.AreEqual(expected, result)
+            | None    -> 
+                Assert.IsTrue false
