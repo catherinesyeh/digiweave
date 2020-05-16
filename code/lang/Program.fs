@@ -6,11 +6,6 @@ open ProgramInterpreter
 
 [<EntryPoint>]
 let main argv =
-    (* trick for later
-    Console.ForegroundColor <- ConsoleColor.Blue // change the color of text!
-    Console.WriteLine("Hello World from F#!")
-     *)
-
     if argv.Length <> 1 then
         printfn "Usage: dotnet run <file.fbp>"
         exit 1

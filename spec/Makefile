@@ -1,7 +1,7 @@
-all: spec
+all: lang-spec
 
-spec: spec.tex
-	pdflatex spec.tex
+spec: lang-spec.tex
+	pdflatex lang-spec.tex
 
 clean:
-	rm -f  *.aux *.log *.out *.bbl spec.pdf *~
+	rm -f  *.aux *.log *.out *.bbl lang-spec.pdf *~
