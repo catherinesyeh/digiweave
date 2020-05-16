@@ -1,36 +1,53 @@
 ﻿<!DOCTYPE html>
 
+<!-- 2ROWS Example -->
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>2ROWS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
-<!-- colors of strings -->
-<!-- full list: https://www.w3schools.com/colors/colors_names.asp -->
 <style>
+    html {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    h1 {
+        letter-spacing: 0.3em;
+        text-align: center;
+    }
+
+    /* colors of strings
+       full list: https://www.w3schools.com/colors/colors_names.asp */
     .string1 {
-        --color: indianred;
+        --color: CornflowerBlue;
     }
 
     .string2 {
-        --color: darksalmon;
+        --color: CornflowerBlue;
     }
 
     .string3 {
-        --color: darkseagreen;
+        --color: Coral;
     }
 
     .string4 {
-        --color: darkslategrey;
+        --color: Coral;
+    }
+
+    .string5 {
+        --color: BurlyWood;
+    }
+
+    .string6 {
+        --color: BurlyWood;
     }
 </style>
 
 <body>
-
-    <h1>Test SVG</h1>
-
-    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500">
+    <!-- print pattern -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="700" height="700">
         <defs>
             <!-- arrow head -->
             <marker id="arrowhead" markerWidth="5" markerHeight="5"
@@ -103,64 +120,180 @@
 
         </defs>
 
-        <!-- row 1 -->
-        <svg class="string1">
-            <use xlink:href="#rr" />
-        </svg>
-        <svg class="string2">
-            <use xlink:href="#ll" transform="translate(100 0)" />
-        </svg>
-        <svg class="string3">
-            <use xlink:href="#rl" transform="translate(200 0)" />
-        </svg>
-        <svg class="string4">
-            <use xlink:href="#lr" transform="translate(300 0)" />
-        </svg>
+        <style>
+            .title {
+                font: bold 32px 'Roboto';
+                letter-spacing: 0.3em;
+            }
 
-        <!-- row 2 -->
-        <svg class="string2">
-            <use xlink:href="#rr" transform="translate(0 100)" />
-        </svg>
-        <svg class="string3">
-            <use xlink:href="#ll" transform="translate(100 100)" />
-        </svg>
-        <svg class="string4">
-            <use xlink:href="#rl" transform="translate(200 100)" />
-        </svg>
-        <svg class="string1">
-            <use xlink:href="#lr" transform="translate(300 100)" />
-        </svg>
+            .row {
+                font: bold 20px 'Roboto';
+            }
+        </style>
 
-        <!-- row 3 -->
-        <svg class="string3">
-            <use xlink:href="#rr" transform="translate(0 200)" />
-        </svg>
-        <svg class="string4">
-            <use xlink:href="#ll" transform="translate(100 200)" />
-        </svg>
-        <svg class="string1">
-            <use xlink:href="#rl" transform="translate(200 200)" />
-        </svg>
-        <svg class="string2">
-            <use xlink:href="#lr" transform="translate(300 200)" />
-        </svg>
+        <!-- name of pattern -->
+        <text x="50%" y="25" class="title" text-anchor="middle">2ROWS</text>
 
-        <!-- row 4 -->
-        <svg class="string4">
-            <use xlink:href="#rr" transform="translate(0 300)" />
-        </svg>
-        <svg class="string1">
-            <use xlink:href="#ll" transform="translate(100 300)" />
-        </svg>
-        <svg class="string2">
-            <use xlink:href="#rl" transform="translate(200 300)" />
-        </svg>
-        <svg class="string3">
-            <use xlink:href="#lr" transform="translate(300 300)" />
-        </svg>
+        <!-- row header -->
+        <g id="rowhead" transform="translate(0 70)">
+            <text x="0" y="20" class="row">ROW</text>
+
+            <svg class="string1">
+                <text x="118" y="20" class="row" fill="var(--color)">1</text>
+            </svg>
+            <svg class="string2">
+                <text x="218" y="20" class="row" fill="var(--color)">2</text>
+            </svg>
+            <svg class="string3">
+                <text x="318" y="20" class="row" fill="var(--color)">3</text>
+            </svg>
+            <svg class="string4">
+                <text x="418" y="20" class="row" fill="var(--color)">4</text>
+            </svg>
+            <svg class="string5">
+                <text x="518" y="20" class="row" fill="var(--color)">5</text>
+            </svg>
+            <svg class="string6">
+                <text x="618" y="20" class="row" fill="var(--color)">6</text>
+            </svg>
+        </g>
+
+        <!-- rows -->
+        <g id="rows" transform="translate(0 120)">
+            <!-- row 1 -->
+            <g id="row1" transform="translate(0 0)">
+                <text x="0" y="30">1</text>
+                <g transform="translate(150 0)">
+                    <svg class="string1">
+                        <use xlink:href="#rr" x="0" />
+                    </svg>
+                    <svg class="string1">
+                        <use xlink:href="#rr" x="100" />
+                    </svg>
+                    <svg class="string1">
+                        <use xlink:href="#rr" x="200" />
+                    </svg>
+                    <svg class="string1">
+                        <use xlink:href="#rr" x="300" />
+                    </svg>
+                    <svg class="string1">
+                        <use xlink:href="#rr" x="400" />
+                    </svg>
+                </g>
+            </g>
+
+            <!-- row 2 -->
+            <g id="row2" transform="translate(0 100)">
+                <text x="0" y="30">2</text>
+                <g transform="translate(150 0)">
+                    <svg class="string2">
+                        <use xlink:href="#rr" x="0" />
+                    </svg>
+                    <svg class="string2">
+                        <use xlink:href="#rr" x="100" />
+                    </svg>
+                    <svg class="string2">
+                        <use xlink:href="#rr" x="200" />
+                    </svg>
+                    <svg class="string2">
+                        <use xlink:href="#rr" x="300" />
+                    </svg>
+                    <svg class="string2">
+                        <use xlink:href="#rr" x="400" />
+                    </svg>
+                </g>
+            </g>
+
+            <!-- row 3 -->
+            <g id="row3" transform="translate(0 200)">
+                <text x="0" y="30">3</text>
+                <g transform="translate(150 0)">
+                    <svg class="string3">
+                        <use xlink:href="#rr" x="0" />
+                    </svg>
+                    <svg class="string3">
+                        <use xlink:href="#rr" x="100" />
+                    </svg>
+                    <svg class="string3">
+                        <use xlink:href="#rr" x="200" />
+                    </svg>
+                    <svg class="string3">
+                        <use xlink:href="#rr" x="300" />
+                    </svg>
+                    <svg class="string3">
+                        <use xlink:href="#rr" x="400" />
+                    </svg>
+                </g>
+            </g>
+
+            <!-- row 4 -->
+            <g id="row4" transform="translate(0 300)">
+                <text x="0" y="30">4</text>
+                <g transform="translate(150 0)">
+                    <svg class="string4">
+                        <use xlink:href="#rr" x="0" />
+                    </svg>
+                    <svg class="string4">
+                        <use xlink:href="#rr" x="100" />
+                    </svg>
+                    <svg class="string4">
+                        <use xlink:href="#rr" x="200" />
+                    </svg>
+                    <svg class="string4">
+                        <use xlink:href="#rr" x="300" />
+                    </svg>
+                    <svg class="string4">
+                        <use xlink:href="#rr" x="400" />
+                    </svg>
+                </g>
+            </g>
+
+            <!-- row 5 -->
+            <g id="row5" transform="translate(0 400)">
+                <text x="0" y="30">5</text>
+                <g transform="translate(150 0)">
+                    <svg class="string5">
+                        <use xlink:href="#rr" x="0" />
+                    </svg>
+                    <svg class="string5">
+                        <use xlink:href="#rr" x="100" />
+                    </svg>
+                    <svg class="string5">
+                        <use xlink:href="#rr" x="200" />
+                    </svg>
+                    <svg class="string5">
+                        <use xlink:href="#rr" x="300" />
+                    </svg>
+                    <svg class="string5">
+                        <use xlink:href="#rr" x="400" />
+                    </svg>
+                </g>
+            </g>
+
+            <!-- row 6 -->
+            <g id="row6" transform="translate(0 500)">
+                <text x="0" y="30">6</text>
+                <g transform="translate(150 0)">
+                    <svg class="string6">
+                        <use xlink:href="#rr" x="0" />
+                    </svg>
+                    <svg class="string6">
+                        <use xlink:href="#rr" x="100" />
+                    </svg>
+                    <svg class="string6">
+                        <use xlink:href="#rr" x="200" />
+                    </svg>
+                    <svg class="string6">
+                        <use xlink:href="#rr" x="300" />
+                    </svg>
+                    <svg class="string6">
+                        <use xlink:href="#rr" x="400" />
+                    </svg>
+                </g>
+            </g>
+        </g>
 
     </svg>
 
 </body>
 </html>
-
