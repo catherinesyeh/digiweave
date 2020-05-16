@@ -3,6 +3,7 @@ namespace tests
 open System
 open System.IO
 open Microsoft.VisualStudio.TestTools.UnitTesting
+open Parser
 open ProgramParser
 open ProgramInterpreter
 
@@ -13,11 +14,106 @@ type TestClass () =
     let prefix = 
            Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.FullName
 
-    (* PARSER TESTS *)
+    (* INDIVIDUAL PARSER TESTS *)
+
+    [<TestMethod>]
+    // test if knot parser parses correctly
+    member this.KnotParsesCorrectly () =
+        let input = "A"
+        let expected = RR('A')
+        let result = knot (prepare input)
+
+        match result with
+        | Success(res, _) -> 
+            Assert.AreEqual(expected, res)
+        | Failure _ -> 
+            Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if row parser parses correctly
+    member this.RowParsesCorrectly () =
+        let input = "ABCD"
+        let expected = Row[RR('A'); LL('B'); RL('C'); LR('D')]
+        let result = row (prepare input)
+
+        match result with
+        | Success(res, _) -> 
+            Assert.AreEqual(expected, res)
+        | Failure _ -> 
+            Assert.IsTrue false
+    
+    [<TestMethod>]
+    // test if block parser parses correctly
+    member this.BlockParsesCorrectly () =
+        let input = "A_A_ BCDD"
+        let expected = Block[Row[RR('A'); SKIP('_'); RR('A'); SKIP('_')]; Row[LL('B'); RL('C'); LR('D'); LR('D')]]
+        let result = block (prepare input)
+
+        match result with
+        | Success(res, _) -> 
+            Assert.AreEqual(expected, res)
+        | Failure _ -> 
+            Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if name parser parses correctly
+    member this.NameParsesCorrectly () =
+        let input = "(name TEST)"
+        let expected = Name("TEST")
+        let result = name (prepare input)
+
+        match result with
+        | Success(res, _) -> 
+            Assert.AreEqual(expected, res)
+        | Failure _ -> 
+            Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if strings parser parses correctly
+    member this.StringsParsesCorrectly () =
+        let input = "(strings 3 pink purple blue)"
+        let expected = Strings(3, ["pink"; "purple"; "blue"])
+        let result = strings (prepare input)
+
+        match result with
+        | Success(res, _) -> 
+            Assert.AreEqual(expected, res)
+        | Failure _ -> 
+            Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if repeat parser parses correctly
+    member this.RepeatParsesCorrectly () =
+        let input = "(repeat 3 AAAA)"
+        let expected = Repeat(3, [Block[Row[RR('A'); RR('A'); RR('A'); RR('A')]]])
+        let result = repeat (prepare input)
+
+        match result with
+        | Success(res, _) -> 
+            Assert.AreEqual(expected, res)
+        | Failure _ -> 
+            Assert.IsTrue false
+    
+    [<TestMethod>]
+    // test if repeat parser with nested repeat parses correctly
+    member this.NestedRepeatParsesCorrectly () =
+        let input = "(repeat 3 AAAA (repeat 2 B_CD))"
+        let expected = 
+            Repeat(3, [Block[Row[RR('A'); RR('A'); RR('A'); RR('A')]]; 
+            Repeat(2, [Block[Row[LL('B'); SKIP('_'); RL('C'); LR('D')]]])])
+        let result = repeat (prepare input)
+
+        match result with
+        | Success(res, _) -> 
+            Assert.AreEqual(expected, res)
+        | Failure _ -> 
+            Assert.IsTrue false
+
+    (* COMPLETE PATTERN PARSER TESTS *)
 
     [<TestMethod>]
     // test if a pattern with 1 row parses correctly
-    member this.SingleRowParsesCorrectly () =
+    member this.SingleRowPatternParsesCorrectly () =
         let input = "(name SINGLEROW) (strings 3 red blue green) AA"
         let expected = 
             Pattern(
@@ -33,7 +129,7 @@ type TestClass () =
 
     [<TestMethod>]
     // test if a pattern with 2 rows parses correctly
-    member this.TwoRowsParsesCorrectly () =
+    member this.TwoRowsPatternParsesCorrectly () =
         let input = "(name TWOROWS) (strings 3 black gray white) AB CD"
         let expected = 
             Pattern(
@@ -49,7 +145,7 @@ type TestClass () =
 
     [<TestMethod>]
     // test if a pattern with repeat parses correctly
-    member this.RepeatParsesCorrectly () =
+    member this.RepeatPatternParsesCorrectly () =
         let input = "(name REPEAT) (strings 4 orange pink pink orange) (repeat 2 ABC)"
         let expected = 
             Pattern(
@@ -66,7 +162,7 @@ type TestClass () =
 
     [<TestMethod>]
     // test if a pattern with a repeat followed by block parses correctly
-    member this.RepeatAndBlockParsesCorrectly () =
+    member this.RepeatAndBlockPatternParsesCorrectly () =
         let input = "(name REPEATANDBLOCK) (strings 4 orange pink pink orange) (repeat 2 BCD) _A_"
         let expected = 
             Pattern(
@@ -84,7 +180,7 @@ type TestClass () =
 
     [<TestMethod>]
     // test if a pattern with a block followed by repeat parses correctly
-    member this.BlockAndRepeatParsesCorrectly () =
+    member this.BlockAndRepeatPatternParsesCorrectly () =
         let input = "(name BLOCKANDREPEAT) (strings 4 orange pink pink orange) _A_ (repeat 2 BCD)"
         let expected = 
             Pattern(
@@ -101,7 +197,7 @@ type TestClass () =
 
     [<TestMethod>]
     // test if a pattern with a nested repeat parses correctly
-    member this.NestedRepeatParsesCorrectly () =
+    member this.NestedRepeatPatternParsesCorrectly () =
         let input = "(name NESTEDREPEAT) (strings 4 orange pink pink orange) (repeat 2 ABC (repeat 4 AAA))"
         let expected = 
             Pattern(
