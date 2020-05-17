@@ -48,8 +48,12 @@ let rec kstringshelper row s i output =
 let reval e s num =
     match e with
     | Row r ->
-        let newstrings, output = kstringshelper r s 0 ""
-        (newstrings, "\n" + (num |> string) + "   " + output)
+        // error check
+        if (List.length r) <> (List.length s) - 1 then
+            failwith "Each row must have exactly (number of strings - 1) knots."
+        else 
+            let newstrings, output = kstringshelper r s 0 ""
+            (newstrings, "\n" + (num |> string) + "   " + output)
 
 (* Evaluates a Block *)
 let rec beval (e: Row list) s output num =
@@ -99,8 +103,12 @@ and clisthelper e s acc num =
 (* Evaluates a Strings *)
 let seval e =
     match e with
-    | Strings (_, strings) ->
-        strings // just return the list of colors in order
+    | Strings (n, strings) ->
+        // error check
+        if (n |> int) <> (List.length strings) then
+            failwith "Number of colors must match number of strings."
+        else
+            strings // just return the list of colors in order
 
 (* Evaluates a Name *)
 let neval e =

@@ -89,6 +89,7 @@ let startBody name s rows path =
         tab3 + ".title {" +
         tab4 + "font: bold 32px 'Roboto';" +
         tab4 + "letter-spacing: 0.3em;" +
+        tab4 + "text-transform: uppercase;" +
         tab3 + "}" +
         tab3 + ".row {" +
         tab4 + "font: bold 20px 'Roboto';" +

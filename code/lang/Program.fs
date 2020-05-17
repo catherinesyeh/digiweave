@@ -6,19 +6,21 @@ open ProgramInterpreter
 
 [<EntryPoint>]
 let main argv =
-    if argv.Length <> 1 then
-        printfn "Usage: dotnet run <file.fbp>"
+    let msg = "Usage: dotnet run <file.fbp>"
+    if argv.Length <> 1 then // check for correct number of arguments
+        printfn "%s" msg
         exit 1
-    
-    // use this to test with string on command line (ex. "dotnet run AAA")
-//    let input = argv.[0]
 
-    // use this to test with file input (ex: dotnet run ../../examples/example-1.fbp)
-    let file = argv.[0]
-    let input = File.ReadAllText file
+    try
+        let file = argv.[0] // read input from file
+        let input = File.ReadAllText file
 
-    match parse input with // try to parse expression
-//    | Some ast -> printfn "%A" ast // use this to test raw parser output
-    | Some ast -> printfn "%A" (eval ast) // use this to test interpreter output
-    | None    -> printfn "Invalid expression."
-    0 // return an integer exit code
+        match parse input with // try to parse expression
+        | Some ast -> 
+            printfn "%A" (eval ast)
+            0
+        | None -> 1
+    with // handle exceptions
+    | :? System.IO.FileNotFoundException as ex -> 
+        printfn "File not found. %s" msg
+        1

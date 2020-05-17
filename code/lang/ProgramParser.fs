@@ -84,4 +84,8 @@ let grammar = pleft pattern peof <!> "grammar"
 let parse(s: string) : Pattern option =
     match grammar (prepare s) with
     | Success(res, _) -> Some res
-    | Failure _ -> None
+    | Failure (pos, rule) -> 
+        let msg = sprintf "Cannot parse input at pos %d in rule '%s':" pos rule
+        let diag = diagnosticMessage 20 pos s msg
+        printfn "%s" diag
+        None
