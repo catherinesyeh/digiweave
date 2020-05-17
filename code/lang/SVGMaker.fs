@@ -5,7 +5,7 @@ open System.IO
 
 let directory = 
     Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName
-let prefix = directory + "/output/"
+let prefix = directory + "/output/" // where the files will go
 
 // tab helpers
 let tab1 = "\n\t"
@@ -19,7 +19,7 @@ let tab6 = "\n\t\t\t\t\t\t"
 let startSVG name =
     let path = prefix + name + ".html"
 
-    let setup = 
+    let setup = // html header
         "<!DOCTYPE html>" + 
         "\n<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">" +
         "\n<head>" +
@@ -236,7 +236,7 @@ let endSVG path =
 // generate SVG file
 let makeSVG name strings result rows =
     let path = startSVG name // get file path
-    addStrings strings path
+    addStrings strings path 
     startBody name strings rows path
     addRows strings result path
     endSVG path
