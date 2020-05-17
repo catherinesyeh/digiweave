@@ -17,7 +17,9 @@ let main argv =
 
         match parse input with // try to parse expression
         | Some ast -> 
-            printfn "%A" (eval ast)
+            let dir =  // get parent directory for output file
+                Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName
+            printfn "%A" (eval ast dir) // time to evaluate!
             0
         | None -> 1
     with // handle exceptions

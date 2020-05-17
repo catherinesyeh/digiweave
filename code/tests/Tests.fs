@@ -292,7 +292,7 @@ type TestClass () =
 
         match parse input with
             | Some ast -> 
-                let result = eval ast
+                let result = eval ast prefix
                 Assert.AreEqual(expected, result)
             | None    -> 
                 Assert.IsTrue false
@@ -309,7 +309,7 @@ type TestClass () =
 
         match parse input with
             | Some ast -> 
-                let result = eval ast
+                let result = eval ast prefix
                 Assert.AreEqual(expected, result)
             | None    -> 
                 Assert.IsTrue false
@@ -333,7 +333,7 @@ type TestClass () =
 
         match parse input with
             | Some ast -> 
-                let result = eval ast
+                let result = eval ast prefix
                 Assert.AreEqual(expected, result)
             | None    -> 
                 Assert.IsTrue false
@@ -354,7 +354,7 @@ type TestClass () =
 
         match parse input with
             | Some ast -> 
-                let result = eval ast
+                let result = eval ast prefix
                 Assert.AreEqual(expected, result)
             | None    -> 
                 Assert.IsTrue false
@@ -373,7 +373,7 @@ type TestClass () =
 
         match parse input with
             | Some ast -> 
-                let result = eval ast
+                let result = eval ast prefix
                 Assert.AreEqual(expected, result)
             | None    -> 
                 Assert.IsTrue false
@@ -396,7 +396,7 @@ type TestClass () =
 
         match parse input with
             | Some ast -> 
-                let result = eval ast
+                let result = eval ast prefix
                 Assert.AreEqual(expected, result)
             | None    -> 
                 Assert.IsTrue false

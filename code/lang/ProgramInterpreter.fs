@@ -118,7 +118,7 @@ let neval e =
         (n, name)
 
 (* Evaluates a Pattern *)
-let eval e =
+let eval e d =
     match e with
     | Pattern (name, strings, components) ->
         let nres = neval name
@@ -130,5 +130,5 @@ let eval e =
             match comps with
             | (colors, fincomp, num) -> // put together name and evaluated components for fully evaluated pattern
                 let result = n + "\nRow" + fincomp
-                makeSVG justname s result (num - 1) // make SVG file
+                makeSVG d justname s result (num - 1) // make SVG file
                 result

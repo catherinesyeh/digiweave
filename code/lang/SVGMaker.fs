@@ -3,10 +3,6 @@ module SVG
 open System
 open System.IO
 
-let directory = 
-    Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName
-let prefix = directory + "/output/" // where the files will go
-
 // tab helpers
 let tab1 = "\n\t"
 let tab2 = "\n\t\t"
@@ -16,7 +12,8 @@ let tab5 = "\n\t\t\t\t\t"
 let tab6 = "\n\t\t\t\t\t\t"
 
 // initalize SVG
-let startSVG name =
+let startSVG dir name =
+    let prefix = dir + "/output/" // where the files will go
     let path = prefix + name + ".html"
 
     let setup = // html header
@@ -235,9 +232,10 @@ let endSVG path =
     File.AppendAllText(path, finishdoc)
 
 // generate SVG file
-let makeSVG name strings result rows =
-    let path = startSVG name // get file path
+let makeSVG dir name strings result rows =
+    let path = startSVG dir name // get file path
     addStrings strings path 
     startBody name strings rows path
     addRows strings result path
+    printfn "Your pattern has been saved to %s\n" path
     endSVG path
