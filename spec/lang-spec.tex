@@ -76,7 +76,7 @@
 		
 	\vspace{\baselineskip}
 	
-	We think this would make a worthwhile programming language because if designed correctly, it will allow the generation of (possibly) infinite designs, fostering creative expression through the aid of technology. Also, we hope to make the language relatively simple and user-friendly (and perhaps with some sort of graphical interface) so that anyone, regardless of coding experience, can design with it :).
+	We think this would make a worthwhile programming language because if designed correctly, it will allow the generation of (possibly) infinite designs, fostering creative expression through the aid of technology. Also, we hope to make the language relatively simple and user-friendly so that anyone, regardless of coding experience, can design with it.
 
 \section{Design Principles}
 
@@ -88,7 +88,7 @@
 
 \section{Example Programs}
 
-    To run these example programs, type \verb|dotnet run ../../examples/example-1.fbp| on the command line from inside the lang directory. Replace "1" with "2" or "3" to try the other examples. The code and output is shown below. We are still working on the svgs but the evaluator output should match.
+    To run these example programs, type \verb|dotnet run ../../examples/example-1.fbp| on the command line from inside the lang directory. Replace "1" with "2" or "3" to try the other examples. The code and output is shown below. An SVG file matching the name of the pattern is created in the output directory in the main directory, which can be opened in a browser to produce an image.
     
     \vspace{\baselineskip}
 
@@ -111,6 +111,14 @@ Row
 5   BurlyWood >> BurlyWood >> BurlyWood >> BurlyWood >> BurlyWood >>
 6   BurlyWood >> BurlyWood >> BurlyWood >> BurlyWood >> BurlyWood >>
     \end{verbatim}
+
+SVG file output:
+
+    \begin{center}
+    \includegraphics{images/2ROWS.png}
+    \end{center}
+    
+    \newpage
     
     Example 2: Arrow pattern
 	\begin{center}
@@ -127,6 +135,14 @@ Row
 3   LightSeaGreen >>  _ LightPink >>  _ LightPink <<  _ LightSeaGreen <<
 4    _ LightSeaGreen >>  _ LightPink >>  _ LightSeaGreen <<  _
     \end{verbatim}
+    
+    SVG file output:
+
+    \begin{center}
+    \includegraphics[width=\linewidth]{images/ARROW.png}
+    \end{center}
+    
+    \newpage
     
     Example 3: Heart pattern
 	\begin{center}
@@ -147,6 +163,16 @@ Row
 7   PeachPuff >  _ PaleVioletRed >>  _ PaleVioletRed <<  _ PeachPuff <
 8    _ PeachPuff <  _ PaleVioletRed >>  _ PeachPuff >  _
     \end{verbatim}
+
+\newpage
+    
+    SVG file output:
+
+    \begin{center}
+    \includegraphics[width=\linewidth]{images/HEART.png}
+    \end{center}
+    
+    \newpage
 
 \section{Language Concepts}
 
@@ -182,7 +208,9 @@ Row
 	\begin{center}
     \includegraphics[width=\linewidth]{images/syntax.png}
     \end{center}
-	
+
+\newpage
+
 	Here is the equivalent, formal definition of the grammar in Backus-Naur form:
 	
 	\begin{verbatim}
@@ -198,12 +226,9 @@ Row
     <num> ::= n in Z+ (aka. any positive integer)  
 	\end{verbatim}
 
-
 \section{Semantics}
     
-    See the next page for a table that summarizes the semantics of our program.
-    
-    \begin{table}
+    \begin{table}[bp!]
         \begin{tabular}{c|c|c|c|c} 
         \textbf{Syntax} & \textbf{Abstract Syntax} & \textbf{Type} & \textbf{Prec./Assoc.} & \textbf{Meaning} \\
         \hline
@@ -215,7 +240,7 @@ Row
         \hline
         "AAA BBB" & Block of Row list & Row list & n/a & \multicolumn{1}{m{4cm}}{Blocks are lists of rows. Blocks are a type of Comp, short for component.} \\
         \hline
-        (repeat n X X ... X) & \multicolumn{1}{m{2.5cm}|}{RepeatOp of int * Comp list} & int * Comp list & 1/left & \multicolumn{1}{m{4cm}}{The repeat operation will process the specified Comp n times. RepeatOp itself is also a type of Comp.} \\
+        (repeat n C C ... C) & \multicolumn{1}{m{2.5cm}|}{RepeatOp of int * Comp list} & int * Comp list & 1/left & \multicolumn{1}{m{4cm}}{The repeat operation will process the specified Comp n times. RepeatOp itself is also a type of Comp.} \\
         \hline
         (name "Name") & NameOp of string & string & 1/left & \multicolumn{1}{m{4cm}}{The name operation assigns the current friendship bracelet pattern the name specified by the given string.} \\
         \hline
@@ -228,13 +253,13 @@ Row
     \item What are the primitive kinds of values in your system? For example, a primitive might be a number, a string, a shape, a sound, and so on.
     	    
     \vspace{0.3em}
-    Primitives could be a string representing the name of the pattern, the colors for each of the strings, and the four types of valid knots (or five if you count the SKIP option). The numbers used to specify how many strings there are or how many times to repeat something are also primitives.
+    Primitives could be a string representing the name of the pattern, the colors for each of the strings, and the five types of valid knots (counting the SKIP option). The numbers used to specify how many strings there are or how many times to repeat something are also primitives.
     
     \vspace{0.5em}
-    \item What are the ìactionsî or compositional elements of your language? In other words, how are values used? For example, your system might have ìcommandsî like ìmove penî or compositional elements like ìsequence of notes.î
+    \item What are the ‚Äúactions‚Äù or compositional elements of your language? In other words, how are values used? For example, your system might have ‚Äúcommands‚Äù like ‚Äúmove pen‚Äù or compositional elements like ‚Äúsequence of notes.‚Äù
     
     \vspace{0.3em}
-    The main compositional elements are the rows of knots and blocks of rows. Some actions might be: "(name XXX)" to name the pattern, "(strings num color\_1 color\_2 ... color\_n)" to specify the number and colors of strings, and "(repeat num XXX)" to repeat rows/blocks of the pattern. None of these operations cannot be combined with each other (but you can repeat a repeat operation), so precedence is not an issue. 
+    The main compositional elements are the rows of knots and blocks of rows. Some actions might be: "(name XXX)" to name the pattern, "(strings num color\_1 color\_2 ... color\_n)" to specify the number and colors of strings, and "(repeat num XXX)" to repeat rows/blocks of the pattern. None of these operations can be combined with each other (but you can repeat a repeat operation), so precedence is not an issue. 
     
     \vspace{0.5em}
     \item How is your program represented? If it helps you to think about this using ML algebraic data types, please use them. Otherwise, rough sketches such as class hierarchy drawings are fine.
@@ -243,7 +268,7 @@ Row
     The program could be represented with a hierarchy similar to what's depicted in the syntax diagram above. The name of the pattern and number/colors of the strings could be saved as variables. A row could be represented as a list of "knots" (after declaring this type) and a block could be represented as a list of "rows" (after declaring this a type too). The pattern would then be made up of blocks and repeat operations, which could be represented as a tuple of (1) the number of times to repeat and (2) the thing to repeat (ex. (2, row: AAAA)).
     
     \vspace{0.5em}
-    \item How do elements ìfit togetherî to represent programs as abstract syntax? For the three example programs you gave earlier, provide sample abstract syntax trees.
+    \item How do elements ‚Äúfit together‚Äù to represent programs as abstract syntax? For the three example programs you gave earlier, provide sample abstract syntax trees.
     
     \vspace{0.3em}
     See below for sample ASTs. Note the examples from earlier have different colored strings, but their patterns and overall ASTs are otherwise identical to these.
@@ -253,6 +278,8 @@ Row
     \begin{center}
     \includegraphics[width=\linewidth]{images/ast1.png}
     \end{center}
+    
+    \newpage
     
     \vspace{\baselineskip}
     \textbf{AST for Example 2:}
@@ -279,7 +306,7 @@ Row
         \item What is the effect (output) of evaluating a program?
         
         \vspace{0.3em}
-        The output will be the pattern created by the user! Ideally, it will be displayed graphically on the screen after their program is complete. We currently plan to generate a svg from the user's program which they can open as a html file.
+        The output will be the pattern created by the user. Currently, the language outputs an SVG file generated by the user's program, which they can then open as an html file.
         
         \vspace{0.5em}
         \item Evaluation is usually conceived of as a depth-first, post-order traversal of an AST. Describe how such a traversal yields the effect you just described and provide illustrations for clarity. Demonstrate evaluation for at least one of your example programs.
@@ -317,7 +344,7 @@ Row
 
 \section{Remaining Work}
 
-We have basically finished implementing all the necessary operations/data types for our language (and the parser + interpreter are working). For a challenge, we will continuing working on converting the output to svg files and enhancing the resulting graphics.
+We have finished implementing all the necessary operations and data types for our language, and our output is converted to SVG files. For a challenge, we are considering adding more features to safeguard the user against unsafe operations; for example, we can make sure that the user puts the correct number of knots in each row, which should be the number of strings minus one, by producing the correct error messages. We might also consider enhancing the graphics to include the strings along with the knots.
 
 % DO NOT DELETE ANYTHING BELOW THIS LINE
 \end{document}
