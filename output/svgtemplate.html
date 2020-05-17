@@ -13,11 +13,6 @@
         font-family: 'Roboto', sans-serif;
     }
 
-    h1 {
-        letter-spacing: 0.3em;
-        text-align: center;
-    }
-
     /* colors of strings
        full list: https://www.w3schools.com/colors/colors_names.asp */
     .string1 {
@@ -47,7 +42,7 @@
 
 <body>
     <!-- print pattern -->
-    <svg xmlns="http://www.w3.org/2000/svg" width="700" height="700">
+    <svg xmlns="http://www.w3.org/2000/svg" width="700" height="1400">
         <defs>
             <!-- arrow head -->
             <marker id="arrowhead" markerWidth="5" markerHeight="5"
@@ -118,6 +113,11 @@
                 <use xlink:href="#rl" transform="translate(50 0) scale(-1,1)" />
             </symbol>
 
+            <!-- skip -->
+            <symbol id="skip" display="none">
+                <use xlink:href="#rr" />
+            </symbol>
+
         </defs>
 
         <style>
@@ -159,7 +159,7 @@
         </g>
 
         <!-- rows -->
-        <g id="rows" transform="translate(0 120)">
+        <g id="rows" transform="translate(0 130)">
             <!-- row 1 -->
             <g id="row1" transform="translate(0 0)">
                 <text x="0" y="30">1</text>

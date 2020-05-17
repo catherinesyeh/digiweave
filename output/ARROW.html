@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>ARROW</title>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<style>
+	html {
+		font-family: 'Roboto', sans-serif;
+	}
+	.stringLightPink {
+		--color: LightPink;
+	}
+	.stringLightSeaGreen {
+		--color: LightSeaGreen;
+	}
+</style>
+
+<body>
+	<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500">
+		<defs>
+			<marker id="arrowhead" markerWidth="5" markerHeight="5" refX="0" refY="2" orient="auto">
+				<polygon points="0 0, 4 2, 0 4" fill="white" />
+			</marker>
+			<symbol id="rarrow">
+				<line x1="30" y1="40" x2="60" y2="40" stroke="white" stroke-width="3" marker-end="url(#arrowhead)" />
+			</symbol>
+			<symbol id="knot">
+				<circle cx="50" cy="50" r="40" />
+			</symbol>
+			<symbol id="twoarrows">
+				<g>
+					<use xlink:href="#rarrow" />
+					<use xlink:href="#rarrow" transform="translate(0 20)" />
+				</g>
+			</symbol>
+			<symbol id="fliparrows">
+				<g>
+					<use xlink:href="#rarrow" transform="scale(0.5,0.5)" />
+					<use xlink:href="#rarrow" transform="translate(50 10) scale(-0.5,0.5)" />
+				</g>
+			</symbol>
+			<symbol id="rr">
+				<g>
+					<use xlink:href="#knot" fill="var(--color)" transform="scale(0.5,0.5)" />
+					<use xlink:href="#twoarrows" transform="scale(0.5, 0.5)" />
+				</g>
+			</symbol>
+			<symbol id="ll">
+				<use xlink:href="#rr" transform="translate(50 0) scale(-1,1)" />
+			</symbol>
+			<symbol id="rl">
+				<g>
+					<use xlink:href="#knot" fill="var(--color)" transform="scale(0.5,0.5)" />
+					<use xlink:href="#fliparrows" />
+				</g>
+			</symbol>
+			<symbol id="lr">
+				<use xlink:href="#rl" transform="translate(50 0) scale(-1,1)" />
+			</symbol>
+			<symbol id="skip" display="none">
+				<use xlink:href="#rr" />
+			</symbol>
+		</defs>
+		<style>
+			.title {
+				font: bold 32px 'Roboto';
+				letter-spacing: 0.3em;
+			}
+			.row {
+				font: bold 20px 'Roboto';
+			}
+		</style>
+		<text x="50%" y="25" class="title" text-anchor="middle">ARROW</text>
+		<g id="rowhead" transform="translate(0 70)">
+			<text x="0" y="20" class="row">ROW</text>
+			<svg class="stringLightPink">
+				<text x="118" y="20" class="row" fill="var(--color)">1</text>
+			</svg>
+			<svg class="stringLightSeaGreen">
+				<text x="218" y="20" class="row" fill="var(--color)">2</text>
+			</svg>
+			<svg class="stringLightSeaGreen">
+				<text x="318" y="20" class="row" fill="var(--color)">3</text>
+			</svg>
+			<svg class="stringLightPink">
+				<text x="418" y="20" class="row" fill="var(--color)">4</text>
+			</svg>
+			<svg class="stringLightPink">
+				<text x="518" y="20" class="row" fill="var(--color)">5</text>
+			</svg>
+			<svg class="stringLightSeaGreen">
+				<text x="618" y="20" class="row" fill="var(--color)">6</text>
+			</svg>
+			<svg class="stringLightSeaGreen">
+				<text x="718" y="20" class="row" fill="var(--color)">7</text>
+			</svg>
+			<svg class="stringLightPink">
+				<text x="818" y="20" class="row" fill="var(--color)">8</text>
+			</svg>
+		</g>
+		<g id="rows" transform="translate(0 130)">
+			<g id="row1" transform="translate(0 0)">
+				<text x="0" y="30">1</text>
+				<g transform="translate(150 0)">
+					<svg class="stringLightPink">
+						<use xlink:href="#rr" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringLightSeaGreen">
+						<use xlink:href="#rr" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringLightSeaGreen">
+						<use xlink:href="#ll" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringLightPink">
+						<use xlink:href="#ll" x="600" />
+					</svg>
+				</g>
+			</g>
+			<g id="row2" transform="translate(0 100)">
+				<text x="0" y="30">2</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringLightPink">
+						<use xlink:href="#rr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringLightSeaGreen">
+						<use xlink:href="#rr" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringLightPink">
+						<use xlink:href="#ll" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+				</g>
+			</g>
+			<g id="row3" transform="translate(0 200)">
+				<text x="0" y="30">3</text>
+				<g transform="translate(150 0)">
+					<svg class="stringLightSeaGreen">
+						<use xlink:href="#rr" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringLightPink">
+						<use xlink:href="#rr" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringLightPink">
+						<use xlink:href="#ll" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringLightSeaGreen">
+						<use xlink:href="#ll" x="600" />
+					</svg>
+				</g>
+			</g>
+			<g id="row4" transform="translate(0 300)">
+				<text x="0" y="30">4</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringLightSeaGreen">
+						<use xlink:href="#rr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringLightPink">
+						<use xlink:href="#rr" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringLightSeaGreen">
+						<use xlink:href="#ll" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+				</g>
+			</g>
+		</g>
+	</svg>
+</body>
+</html>

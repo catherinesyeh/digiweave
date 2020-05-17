@@ -8,6 +8,7 @@
   <ItemGroup>
     <Compile Include="Parsers.fs" />
     <Compile Include="ProgramParser.fs" />
+    <Compile Include="SVGMaker.fs" />
     <Compile Include="ProgramInterpreter.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

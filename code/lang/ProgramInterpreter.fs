@@ -1,6 +1,7 @@
 (* This program is an evaluator for friendship bracelet patterns. *)
 module ProgramInterpreter
 open ProgramParser
+open SVG
 
 (* Evaluates a Knot *)
 let keval e s i =
@@ -105,14 +106,21 @@ let seval e =
 let neval e =
     match e with
     | Name name ->
-        "Pattern Name: " + name + "\n"
+        let n = "Pattern Name: " + name + "\n"
+        (n, name)
 
 (* Evaluates a Pattern *)
 let eval e =
     match e with
     | Pattern (name, strings, components) ->
-        // evaluate the components in the pattern
-        let comps = clisthelper components (seval strings) "" 1
-        match comps with
-        | (colors, fincomp, _) -> // put together name and evaluated components for fully evaluated pattern
-            neval name + "\nRow" + fincomp
+        let nres = neval name
+        match nres with
+        | (n, justname) ->
+            let s = seval strings
+            // evaluate the components in the pattern
+            let comps = clisthelper components s "" 1
+            match comps with
+            | (colors, fincomp, num) -> // put together name and evaluated components for fully evaluated pattern
+                let result = n + "\nRow" + fincomp
+                makeSVG justname s result (num - 1) // make SVG file
+                result
