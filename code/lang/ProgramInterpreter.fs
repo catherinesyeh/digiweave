@@ -186,6 +186,5 @@ let eval e d =
             match comps with
             | (colors, fincomp, num, pos) -> // put together name and evaluated components for fully evaluated pattern
                 let result = n + "\nRow" + fincomp
-                printfn "%A" pos
                 makeSVG d justname s result (num - 1) pos // make SVG file
                 result

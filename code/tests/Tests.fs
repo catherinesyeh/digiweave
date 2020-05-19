@@ -142,6 +142,22 @@ type TestClass () =
             Assert.AreEqual(expected, ws)
         | None ->
             Assert.IsTrue false
+    
+    [<TestMethod>]
+    // test if a pattern with > 9 strings parses correctly (multidigit)
+    member this.TenStringsPatternParsesCorrectly () =
+        let input = "(name 10STRINGS) (strings 10 red red orange orange yellow yellow green green blue blue) AAAAAAAAA"
+        let expected = 
+            Pattern(
+                Name "10STRINGS", Strings(
+                    10, ["red"; "red"; "orange"; "orange"; "yellow"; "yellow"; "green"; "green"; "blue"; "blue"]), 
+                    [Block[Row[RR('A'); RR('A'); RR('A'); RR('A'); RR('A'); RR('A'); RR('A'); RR('A'); RR('A');]]])
+        let result = parse input
+        match result with
+        | Some ws ->
+            Assert.AreEqual(expected, ws)
+        | None ->
+            Assert.IsTrue false
 
     [<TestMethod>]
     // test if a pattern with repeat parses correctly
@@ -153,6 +169,23 @@ type TestClass () =
                     4, ["orange"; "pink"; "pink"; "orange"]), 
                     [Repeat(
                         2, [Block[Row[RR('A'); LL('B'); RL('C')]]])])
+        let result = parse input
+        match result with
+        | Some ws ->
+            Assert.AreEqual(expected, ws)
+        | None ->
+            Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if a pattern with > 9 repeat parses correctly (multidigit)
+    member this.TenRepeatPatternParsesCorrectly () =
+        let input = "(name 10REPEAT) (strings 4 orange pink pink orange) (repeat 10 ABC)"
+        let expected = 
+            Pattern(
+                Name "10REPEAT", Strings(
+                    4, ["orange"; "pink"; "pink"; "orange"]), 
+                    [Repeat(
+                        10, [Block[Row[RR('A'); LL('B'); RL('C')]]])])
         let result = parse input
         match result with
         | Some ws ->
@@ -298,6 +331,21 @@ type TestClass () =
                 Assert.IsTrue false
 
     [<TestMethod>]
+    // test if pattern with > 9 strings evaluates correctly (multidigit)
+    member this.TenStringsEvaluatesCorrectly () =
+        let input = "(name 10STRINGS) (strings 10 red orange yellow green blue purple violet black gray white) AAAAAAAAA"
+        let expected = 
+            "Pattern Name: 10STRINGS\n\nRow" +
+            "\n1   red >> red >> red >> red >> red >> red >> red >> red >> red >> "
+
+        match parse input with
+            | Some ast -> 
+                let result = eval ast prefix
+                Assert.AreEqual(expected, result)
+            | None    -> 
+                Assert.IsTrue false
+
+    [<TestMethod>]
     // test if repeat evaluates correctly
     member this.RepeatEvaluatesCorrectly () =
         let input = "(name REPEAT) (strings 4 orange pink pink orange) (repeat 3 BBB)"
@@ -306,6 +354,30 @@ type TestClass () =
             "\n1   pink << pink << orange << " +
             "\n2   pink << orange << orange << " +
             "\n3   orange << orange << pink << "
+
+        match parse input with
+            | Some ast -> 
+                let result = eval ast prefix
+                Assert.AreEqual(expected, result)
+            | None    -> 
+                Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if > 9 repeat evaluates correctly (multidigit)
+    member this.TenRepeatEvaluatesCorrectly () =
+        let input = "(name 10REPEAT) (strings 4 orange pink pink orange) (repeat 10 BBB)"
+        let expected = 
+            "Pattern Name: 10REPEAT\n\nRow" +
+            "\n1   pink << pink << orange << " +
+            "\n2   pink << orange << orange << " +
+            "\n3   orange << orange << pink << " +
+            "\n4   orange << pink << pink << " +
+            "\n5   pink << pink << orange << " +
+            "\n6   pink << orange << orange << " +
+            "\n7   orange << orange << pink << " +
+            "\n8   orange << pink << pink << " +
+            "\n9   pink << pink << orange << " +
+            "\n10   pink << orange << orange << "
 
         match parse input with
             | Some ast -> 
