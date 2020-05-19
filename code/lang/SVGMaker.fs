@@ -82,7 +82,7 @@ let startBody name s rows path =
         tab4 + "<use xlink:href=\"#rr\" />" +
         tab3 + "</symbol>" +
         tab2 + "</defs>" +
-        tab2 + "<style>" +
+        tab2 + "<style type=\"text/css\">" +
         tab3 + ".title {" +
         tab4 + "font: bold 32px 'Roboto';" +
         tab4 + "letter-spacing: 0.3em;" +
@@ -132,7 +132,7 @@ let addStrings s path =
 
     let uniqueColors = List.distinct s // list that stores only keeps 1 copy of each color used in the pattern
     let startStyle = 
-        "\n\n<style>" +
+        "\n\n<style type=\"text/css\">" +
         tab1 + "html {" +
         tab2 + "font-family: 'Roboto', sans-serif;" +
         tab1 + "}"
@@ -148,12 +148,28 @@ let drawPaths pos strings rows path =
     let finaly = (210 + 100 * (rows - 1)) |> string
 
     let nextPoint (p : string) = // extend path by processing next knot
-        let coords = p.Split([|","|], StringSplitOptions.RemoveEmptyEntries) // get coordinates of knot
-        let row = coords.[0] |> int
-        let knot = coords.[1] |> int
-        let x = (175 + 100 * knot) |> string
-        let y = (155 + 100 * (row - 1)) |> string
-        x + " " + y + " " // done with this knot!
+        match p.Length with
+        | 1 -> // reached last knot
+            ""
+        | _ -> // keep going
+            let coords = p.Split([|","|], StringSplitOptions.RemoveEmptyEntries) // get coordinates of knot
+            let row = coords.[0] |> int
+            let knot = coords.[1] |> int
+            let x = (175 + 100 * knot) |> string
+            let y = (155 + 100 * (row - 1)) |> string
+            x + " " + y + " " // done with this knot!
+
+    let findXEndPos (knots : string list) = // find final x pos
+        let lastknot = List.item(knots.Length - 2) knots // find last knot position
+        let dir = List.item(knots.Length - 1) knots // find direction string is pointing after last knot
+        let x = ((lastknot.Split([|","|], StringSplitOptions.RemoveEmptyEntries)).[1]) |> int
+        let xpos = 
+            match dir with 
+            | "l" -> // ends on left side of knot
+                (125 + 100 * x) |> string
+            | _ -> // ends on right side of knot
+                (225 + 100 * x) |> string
+        xpos
 
     let onePath (s : string) i = // process path for one string
         let color = List.item(i) strings
@@ -165,10 +181,7 @@ let drawPaths pos strings rows path =
         let knots = s.Split([|" "|], StringSplitOptions.RemoveEmptyEntries) |> Seq.toList // make list of knots to connect
         let allPoints = List.fold (fun acc elem -> acc + (nextPoint elem)) path knots
 
-        let lastknot = List.item(knots.Length - 1) knots // find last knot position
-        let x = ((lastknot.Split([|","|], StringSplitOptions.RemoveEmptyEntries)).[1]) |> int
-        let finalx = (175 + 100 * x) |> string
-        
+        let finalx = findXEndPos knots 
         let finishedPath = 
             allPoints + 
             finalx + " " + finaly + "\"" +
@@ -240,7 +253,6 @@ let addRows strings (res: string) path =
             tab4 + "<text x=\"0\" y=\"30\">" + rnum + "</text>" +
             tab4 + "<g transform=\"translate(150 0)\">"
         let knots = List.tail split // rest of items should be knots
-        let total = (List.length knots) - 1
 
         let rec knotHelper itemInd knotInd =
             let s = List.item(itemInd) knots

@@ -40,40 +40,49 @@ let kstringshelperhelper e s i =
     | SKIP _ -> s
 
 // update list of knot positions
-let rec updatepos i row knot pre post =
+let rec updatepos i row knot pre post ktype =
     if (List.length pre) < i then // keep list same up to pos i
         let newPre = List.append pre [List.head post]
         let newPost = List.tail post
-        updatepos i row knot newPre newPost
+        updatepos i row knot newPre newPost ktype
     else // update pos at i
         let oldPos = List.head post
-        let pos = (row |> string) + "," + (knot |> string) + " "
-        let newPos = [oldPos + pos]
+        let pos = (row |> string) + "," + (knot |> string) + " " + ktype
+        let newPos = 
+            match oldPos with
+            | "" -> [oldPos + pos] // list was empty before
+            | _ -> // list wasn't empty, so remove previous l/r indication
+                [oldPos.[..oldPos.Length - 2] + pos]
         let restOfList = List.tail post
         let newlist = List.append (List.append pre newPos) restOfList
         newlist
 
 // help update knot positions
-let poshelper s i num pos =
+let poshelper s i num pos ktype =
     let string1:string = List.item(i) s
     let s1num = string1.[string1.Length - 1] |> string |> int
     let string2:string = List.item(i + 1) s
     let s2num = string2.[string2.Length - 1] |> string |> int
-    let update1 = updatepos (s1num - 1) num i [] pos
-    updatepos (s2num - 1) num i [] update1
+    let update1 = updatepos (s1num - 1) num i [] pos (fst ktype)
+    updatepos (s2num - 1) num i [] update1 (snd ktype)
 
 // return updated list of strings 
 let rec kstringshelper row s i output num pos =
     if (List.isEmpty row) then // finished the row so return results
         (s, output, pos)
     else // process the next knot
-        let news = kstringshelperhelper (List.head row) s i // update strings
+        let k = List.head row
+        let news = kstringshelperhelper k s i // update strings
         let knot = keval (List.head row) s i 
         let newrow = List.tail row 
-        if knot <> " _ " then // update pos list if necessary
-            let newpos = poshelper s i num pos
+        match k with // see if pos list should be updated
+        | RR _ | LL _ -> // string at i will end up on right, string at i+1 will end up on left
+            let newpos = poshelper s i num pos ("r", "l")
             kstringshelper newrow news (i+1) (output + knot) num newpos
-        else // otherwise just keep going
+        | RL _ | LR _ -> // string at i will end up on left, string at i+1 will end up on right
+            let newpos = poshelper s i num pos ("l", "r")
+            kstringshelper newrow news (i+1) (output + knot) num newpos
+        | SKIP _ -> // no changes needed so just keep going
             kstringshelper newrow news (i+1) (output + knot) num pos
 
 (* Evaluates a Row *)
