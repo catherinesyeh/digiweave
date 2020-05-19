@@ -32,7 +32,7 @@ let startSVG dir name =
 let startBody name s rows path =
     let numStrings = List.length s
     let width = 100 * (numStrings + 1)
-    let height = 100 * (rows + 1)
+    let height = 100 * (rows + 1) + 50
 
     // compile necessary svg defs
     let svgdefs = 
@@ -142,6 +142,55 @@ let addStrings s path =
 
     File.AppendAllText(path, allStyle)
 
+// draw paths of strings
+let drawPaths pos strings rows path =
+    let startText = tab2 + "<g id=\"paths\">"
+    let finaly = (210 + 100 * (rows - 1)) |> string
+
+    let nextPoint (p : string) = // extend path by processing next knot
+        let coords = p.Split([|","|], StringSplitOptions.RemoveEmptyEntries) // get coordinates of knot
+        let row = coords.[0] |> int
+        let knot = coords.[1] |> int
+        let x = (175 + 100 * knot) |> string
+        let y = (155 + 100 * (row - 1)) |> string
+        x + " " + y + " " // done with this knot!
+
+    let onePath (s : string) i = // process path for one string
+        let color = List.item(i) strings
+        let startx = (125 + 100 * i) |> string
+        let path = 
+            tab3 + "<svg class=\"string" + color + "\">" +
+            tab4 + "<path d=\"M " + startx + " 100 "
+        
+        let knots = s.Split([|" "|], StringSplitOptions.RemoveEmptyEntries) |> Seq.toList // make list of knots to connect
+        let allPoints = List.fold (fun acc elem -> acc + (nextPoint elem)) path knots
+
+        let lastknot = List.item(knots.Length - 1) knots // find last knot position
+        let x = ((lastknot.Split([|","|], StringSplitOptions.RemoveEmptyEntries)).[1]) |> int
+        let finalx = (175 + 100 * x) |> string
+        
+        let finishedPath = 
+            allPoints + 
+            finalx + " " + finaly + "\"" +
+            tab4 + " stroke=\"var(--color)\" stroke-width=\"2\" fill=\"none\" />" +
+            tab3 + "</svg>"
+        finishedPath
+
+    let rec pathHelper todo soFar i =
+        if (List.isEmpty todo) then // finished processing all the paths
+            soFar
+        else // still some work to do
+            let nextPart = onePath (List.head todo) i
+            pathHelper (List.tail todo) (soFar + nextPart) (i + 1)
+
+    let pathText = pathHelper pos startText 0 // start processing the paths
+
+    let allText = 
+        pathText +
+        tab2 + "</g>"
+
+    File.AppendAllText(path, allText)
+
 // add each row to the svg file
 let addRows strings (res: string) path =
     let startRow = tab2 + "<g id=\"rows\" transform=\"translate(0 130)\">"
@@ -232,10 +281,12 @@ let endSVG path =
     File.AppendAllText(path, finishdoc)
 
 // generate SVG file
-let makeSVG dir name strings result rows =
+let makeSVG dir name strings result rows pos =
     let path = startSVG dir name // get file path
-    addStrings strings path 
-    startBody name strings rows path
-    addRows strings result path
+    let onlyColors = List.map (fun (x:string) -> x.[..x.Length - 2]) strings // remove number at end of color names in list of strings
+    addStrings onlyColors path 
+    startBody name onlyColors rows path
+    drawPaths pos onlyColors rows path
+    addRows onlyColors result path
     printfn "Your pattern has been saved to %s\n" path
     endSVG path
