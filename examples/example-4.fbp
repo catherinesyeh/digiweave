@@ -1,0 +1,32 @@
+(name GRADIENTSQUARES)
+
+(strings 16 
+gray
+silver
+indianred
+lightblue
+rosybrown
+skyblue
+silver
+gray
+gray
+silver
+skyblue
+rosybrown
+lightblue
+indianred
+silver
+gray)
+
+(repeat 2
+(repeat 4
+A_A_A_A_B_B_B_B
+_A_A_A_A_B_B_B_)
+A_A_A_A_B_B_B_B
+_C_C_C_A_D_D_D_
+B_B_B_B_A_A_A_A
+_B_B_B_A_A_A_A_
+B_B_B_A_A_A_A_A
+_D_D_C_C_C_C_C_
+A_A_A_B_B_B_B_B
+_A_A_A_B_B_B_B_)

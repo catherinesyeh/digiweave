@@ -472,3 +472,50 @@ type TestClass () =
                 Assert.AreEqual(expected, result)
             | None    -> 
                 Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if example-4.fbp evaluates correctly
+    member this.File4EvaluatesCorrectly () =
+        let file = prefix + "/examples/example-4.fbp"
+        let input = File.ReadAllText file
+        let expected = 
+            "Pattern Name: GRADIENTSQUARES\n\nRow" +
+            "\n1   gray >>  _ indianred >>  _ rosybrown >>  _ silver >>  _ silver <<  _ rosybrown <<  _ indianred <<  _ gray << " +
+            "\n2    _ gray >>  _ indianred >>  _ rosybrown >>  _ silver >>  _ rosybrown <<  _ indianred <<  _ gray <<  _ " +
+            "\n3   silver >>  _ gray >>  _ indianred >>  _ rosybrown >>  _ rosybrown <<  _ indianred <<  _ gray <<  _ silver << " +
+            "\n4    _ silver >>  _ gray >>  _ indianred >>  _ rosybrown >>  _ indianred <<  _ gray <<  _ silver <<  _ " +
+            "\n5   lightblue >>  _ silver >>  _ gray >>  _ indianred >>  _ indianred <<  _ gray <<  _ silver <<  _ lightblue << " +
+            "\n6    _ lightblue >>  _ silver >>  _ gray >>  _ indianred >>  _ gray <<  _ silver <<  _ lightblue <<  _ " +
+            "\n7   skyblue >>  _ lightblue >>  _ silver >>  _ gray >>  _ gray <<  _ silver <<  _ lightblue <<  _ skyblue << " +
+            "\n8    _ skyblue >>  _ lightblue >>  _ silver >>  _ gray >>  _ silver <<  _ lightblue <<  _ skyblue <<  _ " +
+            "\n9   gray >>  _ skyblue >>  _ lightblue >>  _ silver >>  _ silver <<  _ lightblue <<  _ skyblue <<  _ gray << " +
+            "\n10    _ gray >  _ skyblue >  _ lightblue >  _ silver >>  _ lightblue <  _ skyblue <  _ gray <  _ " +
+            "\n11   gray <<  _ skyblue <<  _ lightblue <<  _ silver <<  _ silver >>  _ lightblue >>  _ skyblue >>  _ gray >> " +
+            "\n12    _ skyblue <<  _ lightblue <<  _ silver <<  _ gray >>  _ silver >>  _ lightblue >>  _ skyblue >>  _ " +
+            "\n13   skyblue <<  _ lightblue <<  _ silver <<  _ indianred >>  _ gray >>  _ silver >>  _ lightblue >>  _ skyblue >> " +
+            "\n14    _ lightblue <  _ silver <  _ rosybrown >  _ indianred >  _ gray >  _ silver >  _ lightblue >  _ " +
+            "\n15   skyblue >>  _ lightblue >>  _ silver >>  _ indianred <<  _ gray <<  _ silver <<  _ lightblue <<  _ skyblue << " +
+            "\n16    _ skyblue >>  _ lightblue >>  _ silver >>  _ gray <<  _ silver <<  _ lightblue <<  _ skyblue <<  _ " +
+            "\n17   gray >>  _ skyblue >>  _ lightblue >>  _ silver >>  _ silver <<  _ lightblue <<  _ skyblue <<  _ gray << " +
+            "\n18    _ gray >>  _ skyblue >>  _ lightblue >>  _ silver >>  _ lightblue <<  _ skyblue <<  _ gray <<  _ " +
+            "\n19   silver >>  _ gray >>  _ skyblue >>  _ lightblue >>  _ lightblue <<  _ skyblue <<  _ gray <<  _ silver << " +
+            "\n20    _ silver >>  _ gray >>  _ skyblue >>  _ lightblue >>  _ skyblue <<  _ gray <<  _ silver <<  _ " +
+            "\n21   rosybrown >>  _ silver >>  _ gray >>  _ skyblue >>  _ skyblue <<  _ gray <<  _ silver <<  _ rosybrown << " +
+            "\n22    _ rosybrown >>  _ silver >>  _ gray >>  _ skyblue >>  _ gray <<  _ silver <<  _ rosybrown <<  _ " +
+            "\n23   indianred >>  _ rosybrown >>  _ silver >>  _ gray >>  _ gray <<  _ silver <<  _ rosybrown <<  _ indianred << " +
+            "\n24    _ indianred >>  _ rosybrown >>  _ silver >>  _ gray >>  _ silver <<  _ rosybrown <<  _ indianred <<  _ " +
+            "\n25   gray >>  _ indianred >>  _ rosybrown >>  _ silver >>  _ silver <<  _ rosybrown <<  _ indianred <<  _ gray << " +
+            "\n26    _ gray >  _ indianred >  _ rosybrown >  _ silver >>  _ rosybrown <  _ indianred <  _ gray <  _ " +
+            "\n27   gray <<  _ indianred <<  _ rosybrown <<  _ silver <<  _ silver >>  _ rosybrown >>  _ indianred >>  _ gray >> " +
+            "\n28    _ indianred <<  _ rosybrown <<  _ silver <<  _ gray >>  _ silver >>  _ rosybrown >>  _ indianred >>  _ " +
+            "\n29   indianred <<  _ rosybrown <<  _ silver <<  _ skyblue >>  _ gray >>  _ silver >>  _ rosybrown >>  _ indianred >> " +
+            "\n30    _ rosybrown <  _ silver <  _ lightblue >  _ skyblue >  _ gray >  _ silver >  _ rosybrown >  _ " +
+            "\n31   indianred >>  _ rosybrown >>  _ silver >>  _ skyblue <<  _ gray <<  _ silver <<  _ rosybrown <<  _ indianred << " +
+            "\n32    _ indianred >>  _ rosybrown >>  _ silver >>  _ gray <<  _ silver <<  _ rosybrown <<  _ indianred <<  _ "
+
+        match parse input with
+            | Some ast -> 
+                let result = eval ast prefix
+                Assert.AreEqual(expected, result)
+            | None    -> 
+                Assert.IsTrue false

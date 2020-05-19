@@ -31,13 +31,13 @@ let startSVG dir name =
 // set up <body> part of html doc
 let startBody name s rows path =
     let numStrings = List.length s
-    let width = 100 * (numStrings + 1)
-    let height = 100 * (rows + 1) + 50
+    let width = (100 * (numStrings + 1)) |> string
+    let height = (100 * (rows + 1) + 50) |> string
 
     // compile necessary svg defs
     let svgdefs = 
         "\n\n<body>" +
-        tab1 + "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + (width |> string) + "\" height=\"" + (height |> string) + "\">" +
+        tab1 + "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 " + width + " " + height + "\">" +
         tab2 + "<defs>" +
         tab3 + "<marker id=\"arrowhead\" markerWidth=\"5\" markerHeight=\"5\" refX=\"0\" refY=\"2\" orient=\"auto\">" +
         tab4 + "<polygon points=\"0 0, 4 2, 0 4\" fill=\"white\" />" +
@@ -135,6 +135,10 @@ let addStrings s path =
         "\n\n<style type=\"text/css\">" +
         tab1 + "html {" +
         tab2 + "font-family: 'Roboto', sans-serif;" +
+        tab1 + "}" +
+        tab1 + "svg {" +
+        tab2 + "position: absolute;" +
+        tab2 + "height: 100%;" +
         tab1 + "}"
     let allStyle = 
         (List.fold (fun acc elem -> acc + (addString elem)) startStyle uniqueColors) +
