@@ -64,7 +64,12 @@
 \newcommand{\YOURID}{Angela + Catherine}	% Replace "Your Name Here" with your name
 \newcommand{\MyLang}{DigiWeave}	% Replace MyLang with your language name #
 
+\title{DigiWeave: Language Specification}
+\date{Spring 2020}
+\author{Angela Wang and Catherine Yeh}
+
 \begin{document}
+\maketitle
 
 \vspace{\baselineskip}	% Add some vertical space
 
@@ -80,19 +85,23 @@
 
 \section{Design Principles}
 
-    This language would definitely be guided by simplicity and clarity to keep the non-technical user in mind. We would also want the language to translate naturally from the physical art of bracelet making (ex. for a double right knot, maybe the user would type DR or something). The language would be flexible enough to allow the user's creativity to shine, while remaining relatively straight forward and easy to understand.
+    This language is guided by simplicity and clarity to keep the non-technical user in mind. We also want the language to translate naturally from the physical art of bracelet making (ex. a double right knot = RR, a right-left knot = RL, etc.). The language would be flexible enough to allow the user's creativity to shine, while remaining relatively straight forward and easy to understand.
 		
 	\vspace{\baselineskip}
 	
-	If possible, it would be cool to create an interface that simulates a digital bracelet with the user's finished pattern at the end too, so they can really visualize what it would look like. We definitely also want to provide support for users in the cases of invalid expressions, syntax errors, or other things like that. 
+	We also created a graphical interface that simulates a digital bracelet with the user's finished pattern at the end, so they can really visualize what it would look like. We definitely also want to provide support for users in the cases of invalid expressions, syntax errors, or other things like that. 
 
 \section{Example Programs}
 
     To run these example programs, type \verb|dotnet run ../../examples/example-1.fbp| on the command line from inside the lang directory. Replace "1" with "2" or "3" to try the other examples. The code and output is shown below. An SVG file matching the name of the pattern is created in the output directory in the main directory, which can be opened in a browser to produce an image.
     
     \vspace{\baselineskip}
+    
+    Below, we show the code needed to produce the examples (right side of first image), the desired pattern (created in Powerpoint; see left side of first image), and the corresponding evaluator output and SVG images produced.
+    
+    \vspace{\baselineskip}
 
-	Example 1: Two row pattern
+	\textbf{Example 1: Two row pattern}
 	\begin{center}
     \includegraphics[width=\linewidth]{images/example1.png}
     \end{center}
@@ -115,12 +124,14 @@ Row
 SVG file output:
 
     \begin{center}
-    \includegraphics{images/2ROWS.png}
+    \vspace*{\fill}
+    \includegraphics[width=\linewidth]{images/2ROWS.png}
+    \vspace*{\fill}
     \end{center}
     
     \newpage
     
-    Example 2: Arrow pattern
+    \textbf{Example 2: Arrow pattern}
 	\begin{center}
     \includegraphics[width=\linewidth]{images/example2.png}
     \end{center}
@@ -139,12 +150,10 @@ Row
     SVG file output:
 
     \begin{center}
-    \includegraphics[width=\linewidth]{images/ARROW.png}
+    \includegraphics[width=0.9\linewidth]{images/ARROW.png}
     \end{center}
     
-    \newpage
-    
-    Example 3: Heart pattern
+   \textbf{Example 3: Heart pattern}
 	\begin{center}
     \includegraphics[width=\linewidth]{images/example3.png}
     \end{center}
@@ -156,7 +165,8 @@ Pattern Name: HEART
 Row
 1   PeachPuff >  _ PeachPuff >>  _ PeachPuff <<  _ PeachPuff <
 2    _ PaleVioletRed >>  _ PeachPuff >>  _ PaleVioletRed <<  _
-3   PaleVioletRed <<  _ PaleVioletRed >>  _ PaleVioletRed <<  _ PaleVioletRed >>
+3   PaleVioletRed <<  _ PaleVioletRed >>  _ PaleVioletRed <<  _ 
+    PaleVioletRed >>
 4    _ PeachPuff >>  _ PaleVioletRed >>  _ PeachPuff <<  _
 5   PaleVioletRed >>  _ PeachPuff >>  _ PeachPuff <<  _ PaleVioletRed <<
 6    _ PaleVioletRed >>  _ PeachPuff >>  _ PaleVioletRed <<  _
@@ -164,16 +174,16 @@ Row
 8    _ PeachPuff <  _ PaleVioletRed >>  _ PeachPuff >  _
     \end{verbatim}
 
-\newpage
-    
     SVG file output:
 
     \begin{center}
+    \vspace*{\fill}
     \includegraphics[width=\linewidth]{images/HEART.png}
+    \vspace*{\fill}
     \end{center}
     
     \newpage
-
+    
 \section{Language Concepts}
 
     	To write programs in this language, a user should understand the basic properties of a friendship bracelet. Essentially, a bracelet is made up of a repeated pattern, which is made up of rows, each of which consists of a certain combination of knots. There are 4 main knots: the double right knot, double left knot, right-left knot, and left-right knot. Rows can be repeated to form the pattern, or they can all be unique combinations of knots.
@@ -344,7 +354,7 @@ Row
 
 \section{Remaining Work}
 
-We have finished implementing all the necessary operations and data types for our language, and our output is converted to SVG files. For a challenge, we are considering adding more features to safeguard the user against unsafe operations; for example, we can make sure that the user puts the correct number of knots in each row, which should be the number of strings minus one, by producing the correct error messages. We might also consider enhancing the graphics to include the strings along with the knots.
+We have finished implementing all the necessary operations and data types for our language, and our output is converted to SVG files. We also added some error checking features to safeguard the user against unsafe operations; for example, we ensure that the user puts the correct number of knots in each row, which should be the number of strings minus one, by producing the correct error messages. In the future, we might consider figuring out how to host our language online (ex. embedding it on a web page) so that users can more easily create their patterns :).
 
 % DO NOT DELETE ANYTHING BELOW THIS LINE
 \end{document}
