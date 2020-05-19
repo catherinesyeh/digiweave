@@ -51,7 +51,7 @@ let nameHelper p = inParens (pright (pstr "name ") p) <!> "nameHelper"
 // read a word as a series of characters and turn it into a string
 let word = pmany1 (pletter <|> pdigit <|> pchar '#') |>> stringify <!> "word"
 // parse a number and a list of 'p'
-let numAndList p = pseq (pleft (pdigit |>> (fun c -> int (string c))) pws1) (pmany1 (pleft p pws0)) (fun (n, e) -> (n, e)) <!> "numAndList"
+let numAndList p = pseq (pleft ((pmany1 pdigit) |>> stringify |>> int) pws1) (pmany1 (pleft p pws0)) (fun (n, e) -> (n, e)) <!> "numAndList"
 // parses a white space or a new line
 let wsOrNl p = pleft p ((pws0 |>> stringify) <|> pnl) <!> "wsOrNl"
 

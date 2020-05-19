@@ -295,10 +295,14 @@ let endSVG path =
 // generate SVG file
 let makeSVG dir name strings result rows pos =
     let path = startSVG dir name // get file path
-    let onlyColors = List.map (fun (x:string) -> x.[..x.Length - 2]) strings // remove number at end of color names in list of strings
+    let onlyColors = // remove number at end of color names in list of strings
+        List.map (fun (x:string) -> 
+            (x.Split([|" "|], StringSplitOptions.RemoveEmptyEntries)).[0]) strings 
+
     addStrings onlyColors path 
     startBody name onlyColors rows path
     drawPaths pos onlyColors rows path
     addRows onlyColors result path
+
     printfn "Your pattern has been saved to %s\n" path
     endSVG path

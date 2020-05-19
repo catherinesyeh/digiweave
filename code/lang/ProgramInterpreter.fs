@@ -2,13 +2,14 @@
 module ProgramInterpreter
 open ProgramParser
 open SVG
+open System
 
 (* Evaluates a Knot *)
 let keval e s i =
     // remove number at end of color names for printing
     let justcolor s i =
         let x:string = List.item(i) s
-        x.[..x.Length - 2]
+        (x.Split([|" "|], StringSplitOptions.RemoveEmptyEntries)).[0]
 
     match e with // print corresponding symbol for each knot
     | RR _ -> (justcolor s i) + " >> "
@@ -60,9 +61,9 @@ let rec updatepos i row knot pre post ktype =
 // help update knot positions
 let poshelper s i num pos ktype =
     let string1:string = List.item(i) s
-    let s1num = string1.[string1.Length - 1] |> string |> int
+    let s1num = (string1.Split([|" "|], StringSplitOptions.RemoveEmptyEntries)).[1] |> int
     let string2:string = List.item(i + 1) s
-    let s2num = string2.[string2.Length - 1] |> string |> int
+    let s2num = (string2.Split([|" "|], StringSplitOptions.RemoveEmptyEntries)).[1] |> int
     let update1 = updatepos (s1num - 1) num i [] pos (fst ktype)
     updatepos (s2num - 1) num i [] update1 (snd ktype)
 
@@ -153,7 +154,7 @@ let seval e =
                 if i = List.length s then 
                     news
                 else
-                    let str = (List.item(i) s) + ((i + 1) |> string)
+                    let str = (List.item(i) s) + " " + ((i + 1) |> string)
                     addnum s (i + 1) (List.append news [str])
             addnum strings 0 [] // return the list of strings/colors in order
 
@@ -185,5 +186,6 @@ let eval e d =
             match comps with
             | (colors, fincomp, num, pos) -> // put together name and evaluated components for fully evaluated pattern
                 let result = n + "\nRow" + fincomp
+                printfn "%A" pos
                 makeSVG d justname s result (num - 1) pos // make SVG file
                 result
