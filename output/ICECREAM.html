@@ -1,0 +1,1145 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>ICECREAM</title>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<style type="text/css">
+	html {
+		font-family: 'Roboto', sans-serif;
+	}
+	svg {
+		position: absolute;
+		height: 100%;
+	}
+	.stringdarkslategray {
+		--color: darkslategray;
+	}
+	.stringperu {
+		--color: peru;
+	}
+	.stringsienna {
+		--color: sienna;
+	}
+	.stringlightpink {
+		--color: lightpink;
+	}
+	.stringcrimson {
+		--color: crimson;
+	}
+</style>
+
+<body>
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 2150">
+		<defs>
+			<marker id="arrowhead" markerWidth="5" markerHeight="5" refX="0" refY="2" orient="auto">
+				<polygon points="0 0, 4 2, 0 4" fill="white" />
+			</marker>
+			<symbol id="rarrow">
+				<line x1="30" y1="40" x2="60" y2="40" stroke="white" stroke-width="3" marker-end="url(#arrowhead)" />
+			</symbol>
+			<symbol id="knot">
+				<circle cx="50" cy="50" r="40" />
+			</symbol>
+			<symbol id="twoarrows">
+				<g>
+					<use xlink:href="#rarrow" />
+					<use xlink:href="#rarrow" transform="translate(0 20)" />
+				</g>
+			</symbol>
+			<symbol id="fliparrows">
+				<g>
+					<use xlink:href="#rarrow" transform="scale(0.5,0.5)" />
+					<use xlink:href="#rarrow" transform="translate(50 10) scale(-0.5,0.5)" />
+				</g>
+			</symbol>
+			<symbol id="rr">
+				<g>
+					<use xlink:href="#knot" fill="var(--color)" transform="scale(0.5,0.5)" />
+					<use xlink:href="#twoarrows" transform="scale(0.5, 0.5)" />
+				</g>
+			</symbol>
+			<symbol id="ll">
+				<use xlink:href="#rr" transform="translate(50 0) scale(-1,1)" />
+			</symbol>
+			<symbol id="rl">
+				<g>
+					<use xlink:href="#knot" fill="var(--color)" transform="scale(0.5,0.5)" />
+					<use xlink:href="#fliparrows" />
+				</g>
+			</symbol>
+			<symbol id="lr">
+				<use xlink:href="#rl" transform="translate(50 0) scale(-1,1)" />
+			</symbol>
+			<symbol id="skip" display="none">
+				<use xlink:href="#rr" />
+			</symbol>
+		</defs>
+		<style type="text/css">
+			.title {
+				font: bold 32px 'Roboto';
+				letter-spacing: 0.3em;
+				text-transform: uppercase;
+			}
+			.row {
+				font: bold 20px 'Roboto';
+			}
+		</style>
+		<text x="50%" y="25" class="title" text-anchor="middle">ICECREAM</text>
+		<g id="rowhead" transform="translate(0 70)">
+			<text x="0" y="20" class="row">ROW</text>
+			<svg class="stringdarkslategray">
+				<text x="118" y="20" class="row" fill="var(--color)">1</text>
+			</svg>
+			<svg class="stringperu">
+				<text x="218" y="20" class="row" fill="var(--color)">2</text>
+			</svg>
+			<svg class="stringdarkslategray">
+				<text x="318" y="20" class="row" fill="var(--color)">3</text>
+			</svg>
+			<svg class="stringperu">
+				<text x="418" y="20" class="row" fill="var(--color)">4</text>
+			</svg>
+			<svg class="stringdarkslategray">
+				<text x="518" y="20" class="row" fill="var(--color)">5</text>
+			</svg>
+			<svg class="stringperu">
+				<text x="618" y="20" class="row" fill="var(--color)">6</text>
+			</svg>
+			<svg class="stringdarkslategray">
+				<text x="718" y="20" class="row" fill="var(--color)">7</text>
+			</svg>
+			<svg class="stringsienna">
+				<text x="818" y="20" class="row" fill="var(--color)">8</text>
+			</svg>
+			<svg class="stringdarkslategray">
+				<text x="918" y="20" class="row" fill="var(--color)">9</text>
+			</svg>
+			<svg class="stringlightpink">
+				<text x="1018" y="20" class="row" fill="var(--color)">10</text>
+			</svg>
+			<svg class="stringdarkslategray">
+				<text x="1118" y="20" class="row" fill="var(--color)">11</text>
+			</svg>
+			<svg class="stringlightpink">
+				<text x="1218" y="20" class="row" fill="var(--color)">12</text>
+			</svg>
+			<svg class="stringdarkslategray">
+				<text x="1318" y="20" class="row" fill="var(--color)">13</text>
+			</svg>
+			<svg class="stringcrimson">
+				<text x="1418" y="20" class="row" fill="var(--color)">14</text>
+			</svg>
+			<svg class="stringdarkslategray">
+				<text x="1518" y="20" class="row" fill="var(--color)">15</text>
+			</svg>
+		</g>
+		<g id="paths">
+			<svg class="stringdarkslategray">
+				<path d="M 125 100 175 155 175 355 175 555 175 755 175 955 175 1155 175 1355 175 1555 175 1755 175 1955 125 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringperu">
+				<path d="M 225 100 175 155 275 255 175 355 275 455 175 555 275 655 175 755 275 855 175 955 275 1055 175 1155 275 1255 175 1355 275 1455 175 1555 275 1655 175 1755 275 1855 175 1955 275 2055 225 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringdarkslategray">
+				<path d="M 325 100 375 155 275 255 375 355 275 455 375 555 275 655 375 755 275 855 375 955 275 1055 375 1155 275 1255 375 1355 275 1455 375 1555 275 1655 375 1755 275 1855 375 1955 275 2055 325 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringperu">
+				<path d="M 425 100 375 155 475 255 375 355 475 455 375 555 475 655 375 755 475 855 375 955 475 1055 375 1155 475 1255 375 1355 475 1455 375 1555 475 1655 375 1755 475 1855 375 1955 475 2055 425 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringdarkslategray">
+				<path d="M 525 100 575 155 475 255 575 355 475 455 575 555 475 655 575 755 475 855 575 955 475 1055 575 1155 475 1255 575 1355 475 1455 575 1555 475 1655 575 1755 475 1855 575 1955 475 2055 525 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringperu">
+				<path d="M 625 100 575 155 675 255 575 355 675 455 575 555 675 655 575 755 675 855 575 955 675 1055 575 1155 675 1255 575 1355 675 1455 575 1555 675 1655 575 1755 675 1855 575 1955 675 2055 625 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringdarkslategray">
+				<path d="M 725 100 775 155 675 255 775 355 675 455 775 555 675 655 775 755 675 855 775 955 675 1055 775 1155 675 1255 775 1355 675 1455 775 1555 675 1655 775 1755 675 1855 775 1955 675 2055 725 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringsienna">
+				<path d="M 825 100 775 155 875 255 775 355 875 455 775 555 875 655 775 755 875 855 775 955 875 1055 775 1155 875 1255 775 1355 875 1455 775 1555 875 1655 775 1755 875 1855 775 1955 875 2055 825 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringdarkslategray">
+				<path d="M 925 100 975 155 875 255 975 355 875 455 975 555 875 655 975 755 875 855 975 955 875 1055 975 1155 875 1255 975 1355 875 1455 975 1555 875 1655 975 1755 875 1855 975 1955 875 2055 925 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringlightpink">
+				<path d="M 1025 100 975 155 1075 255 975 355 1075 455 975 555 1075 655 975 755 1075 855 975 955 1075 1055 975 1155 1075 1255 975 1355 1075 1455 975 1555 1075 1655 975 1755 1075 1855 975 1955 1075 2055 1025 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringdarkslategray">
+				<path d="M 1125 100 1175 155 1075 255 1175 355 1075 455 1175 555 1075 655 1175 755 1075 855 1175 955 1075 1055 1175 1155 1075 1255 1175 1355 1075 1455 1175 1555 1075 1655 1175 1755 1075 1855 1175 1955 1075 2055 1125 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringlightpink">
+				<path d="M 1225 100 1175 155 1275 255 1175 355 1275 455 1175 555 1275 655 1175 755 1275 855 1175 955 1275 1055 1175 1155 1275 1255 1175 1355 1275 1455 1175 1555 1275 1655 1175 1755 1275 1855 1175 1955 1275 2055 1225 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringdarkslategray">
+				<path d="M 1325 100 1375 155 1275 255 1375 355 1275 455 1375 555 1275 655 1375 755 1275 855 1375 955 1275 1055 1375 1155 1275 1255 1375 1355 1275 1455 1375 1555 1275 1655 1375 1755 1275 1855 1375 1955 1275 2055 1325 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringcrimson">
+				<path d="M 1425 100 1375 155 1475 255 1375 355 1475 455 1375 555 1475 655 1375 755 1475 855 1375 955 1475 1055 1375 1155 1475 1255 1375 1355 1475 1455 1375 1555 1475 1655 1375 1755 1475 1855 1375 1955 1475 2055 1425 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+			<svg class="stringdarkslategray">
+				<path d="M 1525 100 1475 255 1475 455 1475 655 1475 855 1475 1055 1475 1255 1475 1455 1475 1655 1475 1855 1475 2055 1525 2110"
+				 stroke="var(--color)" stroke-width="2" fill="none" />
+			</svg>
+		</g>
+		<g id="rows" transform="translate(0 130)">
+			<g id="row1" transform="translate(0 0)">
+				<text x="0" y="30">1</text>
+				<g transform="translate(150 0)">
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="600" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="700" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="800" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="900" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1000" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row2" transform="translate(0 100)">
+				<text x="0" y="30">2</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#rl" x="700" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="800" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="900" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1000" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row3" transform="translate(0 200)">
+				<text x="0" y="30">3</text>
+				<g transform="translate(150 0)">
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#lr" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#lr" x="600" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="700" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="800" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="900" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="1000" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row4" transform="translate(0 300)">
+				<text x="0" y="30">4</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#rl" x="700" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="800" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#rl" x="900" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1000" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#rl" x="1100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row5" transform="translate(0 400)">
+				<text x="0" y="30">5</text>
+				<g transform="translate(150 0)">
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#lr" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#lr" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#lr" x="600" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="700" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="800" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="900" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="1000" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1100" />
+					</svg>
+					<svg class="stringcrimson">
+						<use xlink:href="#lr" x="1200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row6" transform="translate(0 500)">
+				<text x="0" y="30">6</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#rl" x="700" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="800" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#rl" x="900" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1000" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#rl" x="1100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row7" transform="translate(0 600)">
+				<text x="0" y="30">7</text>
+				<g transform="translate(150 0)">
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#lr" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#lr" x="600" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="700" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="800" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="900" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="1000" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row8" transform="translate(0 700)">
+				<text x="0" y="30">8</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#rl" x="700" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="800" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="900" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1000" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row9" transform="translate(0 800)">
+				<text x="0" y="30">9</text>
+				<g transform="translate(150 0)">
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="600" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="700" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="800" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="900" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1000" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row10" transform="translate(0 900)">
+				<text x="0" y="30">10</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="700" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="800" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="900" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1000" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row11" transform="translate(0 1000)">
+				<text x="0" y="30">11</text>
+				<g transform="translate(150 0)">
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="600" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="700" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="800" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="900" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1000" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row12" transform="translate(0 1100)">
+				<text x="0" y="30">12</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#rl" x="700" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="800" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="900" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1000" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row13" transform="translate(0 1200)">
+				<text x="0" y="30">13</text>
+				<g transform="translate(150 0)">
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#lr" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#lr" x="600" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="700" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="800" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="900" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="1000" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row14" transform="translate(0 1300)">
+				<text x="0" y="30">14</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#rl" x="700" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="800" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#rl" x="900" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1000" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#rl" x="1100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row15" transform="translate(0 1400)">
+				<text x="0" y="30">15</text>
+				<g transform="translate(150 0)">
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#lr" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#lr" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#lr" x="600" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="700" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="800" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="900" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="1000" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1100" />
+					</svg>
+					<svg class="stringcrimson">
+						<use xlink:href="#lr" x="1200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row16" transform="translate(0 1500)">
+				<text x="0" y="30">16</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#rl" x="700" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="800" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#rl" x="900" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1000" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#rl" x="1100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row17" transform="translate(0 1600)">
+				<text x="0" y="30">17</text>
+				<g transform="translate(150 0)">
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#lr" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#lr" x="600" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="700" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="800" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="900" />
+					</svg>
+					<svg class="stringlightpink">
+						<use xlink:href="#lr" x="1000" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row18" transform="translate(0 1700)">
+				<text x="0" y="30">18</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringperu">
+						<use xlink:href="#rl" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+					<svg class="stringsienna">
+						<use xlink:href="#rl" x="700" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="800" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="900" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1000" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row19" transform="translate(0 1800)">
+				<text x="0" y="30">19</text>
+				<g transform="translate(150 0)">
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="0" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="300" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="400" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="500" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="600" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="700" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="800" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="900" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1000" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1100" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#rl" x="1200" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1300" />
+					</svg>
+				</g>
+			</g>
+			<g id="row20" transform="translate(0 1900)">
+				<text x="0" y="30">20</text>
+				<g transform="translate(150 0)">
+					<svg>
+						<use xlink:href="#skip" x="0" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="300" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="400" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="500" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="600" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="700" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="800" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="900" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1000" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1100" />
+					</svg>
+					<svg>
+						<use xlink:href="#skip" x="1200" />
+					</svg>
+					<svg class="stringdarkslategray">
+						<use xlink:href="#lr" x="1300" />
+					</svg>
+				</g>
+			</g>
+		</g>
+	</svg>
+</body>
+</html>

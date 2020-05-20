@@ -1,0 +1,30 @@
+(name ICECREAM)
+
+(strings 15
+darkslategray
+peru
+darkslategray
+peru
+darkslategray
+peru
+darkslategray
+sienna
+darkslategray
+lightpink
+darkslategray
+lightpink
+darkslategray
+crimson
+darkslategray)
+
+(repeat 2
+C_C_C_C_C_C_C_
+_D_D_C_C_D_D_D
+C_C_D_D_D_D_C_
+_D_C_C_C_C_C_D
+C_D_D_D_D_D_D_
+_D_C_C_C_C_C_D
+C_C_D_D_D_D_C_
+_D_D_C_C_D_D_D
+C_C_C_C_C_C_C_
+_D_D_D_D_D_D_D)

@@ -376,6 +376,57 @@ type TestClass () =
             Assert.AreEqual(expected, ws)
         | None ->
             Assert.IsTrue false
+            
+    [<TestMethod>]
+    // test if example-5.fbp parses correctly
+    member this.File5ParsesCorrectly () =
+        let file = prefix + "/examples/example-5.fbp"
+        let input = File.ReadAllText file
+        let expected = 
+            Pattern(
+                Name "ICECREAM", Strings(
+                    15, ["darkslategray"; "peru"; "darkslategray"; "peru"; "darkslategray"; "peru";
+                    "darkslategray"; "sienna"; "darkslategray"; "lightpink"; "darkslategray";
+                    "lightpink"; "darkslategray"; "crimson"; "darkslategray"]),
+                    [Repeat(
+                        2,
+                        [Block
+                            [Row 
+                                [RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C';
+                                SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_'];
+                            Row
+                               [SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; RL 'C'; SKIP '_';
+                                RL 'C'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D'];
+                            Row
+                               [RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D';
+                                SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; RL 'C'; SKIP '_'];
+                            Row
+                               [SKIP '_'; LR 'D'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_';
+                                RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; LR 'D'];
+                            Row
+                               [RL 'C'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D';
+                                SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'];
+                            Row
+                               [SKIP '_'; LR 'D'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_';
+                                RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; LR 'D'];
+                            Row
+                               [RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D';
+                                SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; RL 'C'; SKIP '_'];
+                            Row
+                               [SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; RL 'C'; SKIP '_';
+                                RL 'C'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D'];
+                            Row
+                               [RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C';
+                                SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_'];
+                            Row
+                               [SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_';
+                                LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D']]])])
+        let result = parse input
+        match result with
+        | Some ws ->
+            Assert.AreEqual(expected, ws)
+        | None ->
+            Assert.IsTrue false
 
     (* EVALUATOR TESTS *)
 
@@ -576,6 +627,41 @@ type TestClass () =
             "\n30    _ rosybrown <  _ silver <  _ lightblue >  _ skyblue >  _ gray >  _ silver >  _ rosybrown >  _ " +
             "\n31   indianred >>  _ rosybrown >>  _ silver >>  _ skyblue <<  _ gray <<  _ silver <<  _ rosybrown <<  _ indianred << " +
             "\n32    _ indianred >>  _ rosybrown >>  _ silver >>  _ gray <<  _ silver <<  _ rosybrown <<  _ indianred <<  _ "
+
+        match parse input with
+            | Some ast -> 
+                let result = eval ast prefix
+                Assert.AreEqual(expected, result)
+            | None    -> 
+                Assert.IsTrue false
+
+    [<TestMethod>]
+    // test if example-5.fbp evaluates correctly
+    member this.File5EvaluatesCorrectly () =
+        let file = prefix + "/examples/example-5.fbp"
+        let input = File.ReadAllText file
+        let expected = 
+            "Pattern Name: ICECREAM\n\nRow" +
+            "\n1   darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ " +
+            "\n2    _ darkslategray <  _ darkslategray <  _ peru >  _ sienna >  _ darkslategray <  _ darkslategray <  _ darkslategray < " +
+            "\n3   darkslategray >  _ darkslategray >  _ peru <  _ sienna <  _ lightpink <  _ lightpink <  _ darkslategray >  _ " +
+            "\n4    _ darkslategray <  _ peru >  _ peru >  _ sienna >  _ lightpink >  _ lightpink >  _ darkslategray < " +
+            "\n5   darkslategray >  _ peru <  _ peru <  _ sienna <  _ lightpink <  _ lightpink <  _ crimson <  _ " +
+            "\n6    _ darkslategray <  _ peru >  _ peru >  _ sienna >  _ lightpink >  _ lightpink >  _ darkslategray < " +
+            "\n7   darkslategray >  _ darkslategray >  _ peru <  _ sienna <  _ lightpink <  _ lightpink <  _ darkslategray >  _ " +
+            "\n8    _ darkslategray <  _ darkslategray <  _ peru >  _ sienna >  _ darkslategray <  _ darkslategray <  _ darkslategray < " +
+            "\n9   darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ " +
+            "\n10    _ darkslategray <  _ darkslategray <  _ darkslategray <  _ darkslategray <  _ darkslategray <  _ darkslategray <  _ darkslategray < " +
+            "\n11   darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ " +
+            "\n12    _ darkslategray <  _ darkslategray <  _ peru >  _ sienna >  _ darkslategray <  _ darkslategray <  _ darkslategray < " +
+            "\n13   darkslategray >  _ darkslategray >  _ peru <  _ sienna <  _ lightpink <  _ lightpink <  _ darkslategray >  _ " +
+            "\n14    _ darkslategray <  _ peru >  _ peru >  _ sienna >  _ lightpink >  _ lightpink >  _ darkslategray < " +
+            "\n15   darkslategray >  _ peru <  _ peru <  _ sienna <  _ lightpink <  _ lightpink <  _ crimson <  _ " +
+            "\n16    _ darkslategray <  _ peru >  _ peru >  _ sienna >  _ lightpink >  _ lightpink >  _ darkslategray < " +
+            "\n17   darkslategray >  _ darkslategray >  _ peru <  _ sienna <  _ lightpink <  _ lightpink <  _ darkslategray >  _ " +
+            "\n18    _ darkslategray <  _ darkslategray <  _ peru >  _ sienna >  _ darkslategray <  _ darkslategray <  _ darkslategray < " +
+            "\n19   darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ darkslategray >  _ " +
+            "\n20    _ darkslategray <  _ darkslategray <  _ darkslategray <  _ darkslategray <  _ darkslategray <  _ darkslategray <  _ darkslategray < "
 
         match parse input with
             | Some ast -> 
