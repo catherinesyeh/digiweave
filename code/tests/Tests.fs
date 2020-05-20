@@ -313,6 +313,70 @@ type TestClass () =
         | None ->
             Assert.IsTrue false
 
+    [<TestMethod>]
+    // test if example-4.fbp parses correctly
+    member this.File4ParsesCorrectly () =
+        let file = prefix + "/examples/example-4.fbp"
+        let input = File.ReadAllText file
+        let expected = 
+            Pattern(
+                Name "GRADIENTSQUARES", Strings(
+                    16, ["gray"; "silver"; "indianred"; "lightblue"; "rosybrown"; "skyblue";
+                    "silver"; "gray"; "gray"; "silver"; "skyblue"; "rosybrown"; "lightblue";
+                    "indianred"; "silver"; "gray"]),
+                    [Repeat
+                        (2,
+                        [Repeat
+                            (4,
+                            [Block
+                                [Row
+                                    [RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; RR 'A';
+                                    SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_';
+                                    LL 'B'];
+                                Row
+                                    [SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_';
+                                    RR 'A'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B';
+                                    SKIP '_']]]);
+                        Block
+                            [Row
+                                [RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; RR 'A';
+                                SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_';
+                                LL 'B'];
+                            Row
+                                [SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_';
+                                RR 'A'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; LR 'D';
+                                SKIP '_'];
+                            Row
+                                [LL 'B'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B';
+                                SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_';
+                                RR 'A'];
+                            Row
+                                [SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_';
+                                RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; RR 'A';
+                                SKIP '_'];
+                            Row
+                                [LL 'B'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_'; RR 'A';
+                                SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_';
+                                RR 'A'];
+                            Row
+                                [SKIP '_'; LR 'D'; SKIP '_'; LR 'D'; SKIP '_'; RL 'C'; SKIP '_';
+                                RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C'; SKIP '_'; RL 'C';
+                                SKIP '_'];
+                            Row
+                                [RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; LL 'B';
+                                SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_';
+                                LL 'B'];
+                            Row
+                                [SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_'; RR 'A'; SKIP '_';
+                                LL 'B'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B'; SKIP '_'; LL 'B';
+                                SKIP '_']]])])
+        let result = parse input
+        match result with
+        | Some ws ->
+            Assert.AreEqual(expected, ws)
+        | None ->
+            Assert.IsTrue false
+
     (* EVALUATOR TESTS *)
 
     [<TestMethod>]
