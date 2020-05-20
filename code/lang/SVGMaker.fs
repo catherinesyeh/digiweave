@@ -28,6 +28,14 @@ let startSVG dir name =
     File.WriteAllText(path, setup)
     path
 
+// deal with hex codes
+let hexHelper (color : string) = 
+    let label = 
+        match color.[0] with
+        | '#' -> color.[1..] // hex code found
+        | _ -> color
+    label
+
 // set up <body> part of html doc
 let startBody name s rows path =
     let numStrings = List.length s
@@ -99,9 +107,10 @@ let startBody name s rows path =
     // build the header row (shows original order of strings in their respective colors)
     let rowHead i = 
         let color = List.item(i) s
+        let label = hexHelper color
         let xoffset = 118 + i * 100
         let stringnum = i + 1
-        tab3 + "<svg class=\"string" + color + "\">" +
+        tab3 + "<svg class=\"string" + label + "\">" +
         tab4 + "<text x=\"" + (xoffset |> string) + "\" y=\"20\" class=\"row\" fill=\"var(--color)\">" + (stringnum |> string) + "</text>" +
         tab3 + "</svg>"
 
@@ -124,8 +133,9 @@ let startBody name s rows path =
 let addStrings s path =
     // create 1 string style element
     let addString color =
+        let label = hexHelper color
         let styleElem = 
-            tab1 + ".string" + color + " {" +
+            tab1 + ".string" + label + " {" +
             tab2 + "--color: " + color + ";" +
             tab1 + "}"
         styleElem
@@ -177,9 +187,10 @@ let drawPaths pos strings rows path =
 
     let onePath (s : string) i = // process path for one string
         let color = List.item(i) strings
+        let label = hexHelper color
         let startx = (125 + 100 * i) |> string
         let path = 
-            tab3 + "<svg class=\"string" + color + "\">" +
+            tab3 + "<svg class=\"string" + label + "\">" +
             tab4 + "<path d=\"M " + startx + " 100 "
         
         let knots = s.Split([|" "|], StringSplitOptions.RemoveEmptyEntries) |> Seq.toList // make list of knots to connect
@@ -243,7 +254,7 @@ let addRows strings (res: string) path =
                 tab5 + "</svg>"
             (i+1, text)
         | _ -> // color
-            let text = tab5 + "<svg class=\"string" + s + "\">"
+            let text = tab5 + "<svg class=\"string" + (hexHelper s) + "\">"
             (i, text)
 
     let oneRow (row: string) = // add each row
