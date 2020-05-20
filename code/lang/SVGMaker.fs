@@ -37,15 +37,13 @@ let hexHelper (color : string) =
     label
 
 // set up <body> part of html doc
-let startBody name s rows path =
+let startBody name s w h path =
     let numStrings = List.length s
-    let width = (100 * (numStrings + 1)) |> string
-    let height = (100 * (rows + 1) + 50) |> string
 
     // compile necessary svg defs
     let svgdefs = 
         "\n\n<body>" +
-        tab1 + "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 " + width + " " + height + "\">" +
+        tab1 + "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 " + w + " " + h + "\">" +
         tab2 + "<defs>" +
         tab3 + "<marker id=\"arrowhead\" markerWidth=\"5\" markerHeight=\"5\" refX=\"0\" refY=\"2\" orient=\"auto\">" +
         tab4 + "<polygon points=\"0 0, 4 2, 0 4\" fill=\"white\" />" +
@@ -130,7 +128,16 @@ let startBody name s rows path =
     File.AppendAllText(path, allText)
 
 // add strings to SVG
-let addStrings s path =
+let addStrings s rows path =
+    let numStrings = List.length s
+    let width = (100 * (numStrings + 1))
+    let height = (100 * (rows + 1) + 50)
+    
+    let hOrW = // see if pattern width or height is larger
+        match height >= width with
+        | true -> "height: 100%;"
+        | false -> "width: 100%;"
+
     // create 1 string style element
     let addString color =
         let label = hexHelper color
@@ -148,13 +155,14 @@ let addStrings s path =
         tab1 + "}" +
         tab1 + "svg {" +
         tab2 + "position: absolute;" +
-        tab2 + "height: 100%;" +
+        tab2 + hOrW +
         tab1 + "}"
     let allStyle = 
         (List.fold (fun acc elem -> acc + (addString elem)) startStyle uniqueColors) +
         "\n</style>"
 
     File.AppendAllText(path, allStyle)
+    (width |> string, height |> string)
 
 // draw paths of strings
 let drawPaths pos strings rows path =
@@ -314,8 +322,8 @@ let makeSVG dir name strings result rows pos =
         List.map (fun (x:string) -> 
             (x.Split([|" "|], StringSplitOptions.RemoveEmptyEntries)).[0]) strings 
 
-    addStrings onlyColors path 
-    startBody name onlyColors rows path
+    let (w, h) = addStrings onlyColors rows path 
+    startBody name onlyColors w h path
     drawPaths pos onlyColors rows path
     addRows onlyColors result path
 
