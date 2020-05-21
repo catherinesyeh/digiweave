@@ -13,7 +13,7 @@ let tab6 = "\n\t\t\t\t\t\t"
 
 // initalize SVG
 let startSVG dir name =
-    let prefix = dir + "/output/" // where the files will go
+    let prefix = dir + """\output\""" // where the files will go
     let path = prefix + name + ".html"
 
     let setup = // html header
