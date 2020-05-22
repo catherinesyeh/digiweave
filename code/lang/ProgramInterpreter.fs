@@ -117,7 +117,10 @@ let rec ceval e s num pos =
             let out = List.fold (+) "" output
             (colors, out, newnum, newpos)
     | Repeat (n,c) -> // found a repeat operation
-        repeathelper n c s "" num pos
+        if (n |> int) < 1 then // error check
+            failwith "Repeat must be given a positive integer."
+        else
+            repeathelper n c s "" num pos
 
 // perform repeat operation
 and repeathelper n e s acc num pos =
@@ -146,8 +149,11 @@ and clisthelper e s acc num pos =
 let seval e =
     match e with
     | Strings (n, strings) ->
+        let numstr = n |> int
         // error check
-        if (n |> int) <> (List.length strings) then
+        if numstr < 1 then
+            failwith "Number of strings must be at least 1."
+        elif numstr <> (List.length strings) then
             failwith "Number of colors must match number of strings."
         else
             let rec addnum s i news = // add number of string to end of each color to differentiate
