@@ -1,0 +1,43 @@
+Grade Sheet for CS334S20 Final Project
+
+Name: Angela Wang and Catherine Yeh
+
+[10/10] 1000-word tutorial or 5-10 minute video presentation
+[ 1/1 ] Project has a name
+[ 8/8 ] Project has a specification (and it builds)
+[ 2/2 ] Parser is in a file called `ProjectParser.fs`
+[ 2/2 ] Interpreter is in a file called `ProjectInterpreter.fs`
+[ 2/2 ] `main` function is in a file called `Program.fs`
+[10/10] Project compiles.
+[10/10] Project runs.
+[10/10] Language "does something."
+  Wow.
+[ 5/5 ] Docs explain what expected result will be.
+[ 2/2 ] Implementation has test suite and it runs.
+[ 5/5 ] There are >0 tests for the parser.
+[ 5/5 ] There are >0 tests for the interpreter.
+[ 5/5 ] Project can be run with dotnet.
+[ 1/1 ] Specification has a title.
+[ 1/1 ] Author name(s) is written at the top of the spec.
+[ 2/2 ] Spec has Introduction section w/2+ paragraphs.
+[ 2/2 ] Spec has Design Principles section w/1+ paragraphs.
+[ 3/3 ] Spec has Examples section w/3+ examples.
+[ 3/3 ] Instructions to run examples are provided.
+[ 2/2 ] Spec has Language Concepts section w/1+ paragraphs.
+[ 3/2 ] Spec has complete Formal Syntax section in BNF.
+[ 2/2 ] Spec has Semantics section w/1 description per language element.
+[ 1/1 ] Spec provides enough detail that 3rd party can write new program.
+[ 1/1 ] Program shuts down without .NET exception on malformed programs.
+[ 1/1 ] Final spec is committed to `final-submission` branch.
+[ 1/1 ] Final language is committed to `final-submission` branch.
+[ 1/1 ] Spec has Remaining Work section.
+
+TOTAL: 100%
+
+This is beautiful work.  I wish all of my students put in as much effort as the two of you.  Your language is both creative and useful, and I really enjoyed playing with it.  If the Ward Prize deadline had been a little later (the timing is difficult for spring projects), this would have been an easy nomination for me.  
+
+Aside from the language itself, I love your language documents.  They are easy to read, thorough, and they're just pleasing to look at.  You two should seriously consider becoming language designers!  I think you should be proud of this work.  Would you mind if I used your project as an example the next time I teach CS334?
+
+I would love to see you move this online.  You might check out the Fable project (https://fable.io/).  Markus Feng, one of the 334 TAs, used this project to put his 334 project from fall '18 online.  You might reach out to him to see what steps you need to do.
+
+Well done! Enjoy your summer.
