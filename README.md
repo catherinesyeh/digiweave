@@ -5,9 +5,9 @@ DigiWeave is a programming language that allows users to design friendship brace
 ### Example Patterns
 Here are some example patterns made with DigiWeave to inspire your own programs.
 
-<img src="https://raw.githubusercontent.com/catherinesyeh/digiweave/master/spec/images/2ROWS.png" alt="2ROWS" width="30%" height="auto">
-<img src="https://raw.githubusercontent.com/catherinesyeh/digiweave/master/spec/images/ARROW.png" alt="ARROW" width="30%" height="auto">
-<img src="https://raw.githubusercontent.com/catherinesyeh/digiweave/master/spec/images/HEART.png" alt="HEART" width="30%" height="auto">
+![2ROWS](https://raw.githubusercontent.com/catherinesyeh/digiweave/master/spec/images/2ROWS.png)
+![ARROW](https://raw.githubusercontent.com/catherinesyeh/digiweave/master/spec/images/ARROW.png)
+![HEART](https://raw.githubusercontent.com/catherinesyeh/digiweave/master/spec/images/HEART.png)
 
 ### Ready to Start Coding?
-Check out our tutorial [here](DigiWeave Tutorial.pdf) and/or read the [spec](spec/lang_spec.pdf). Enjoy making your own friendship bracelet patterns-- the possibilities are truly endless :).
+Check out our tutorial [here](DigiWeave&#32;Tutorial.pdf) and/or read the [spec](spec/lang_spec.pdf). Enjoy making your own friendship bracelet patterns-- the possibilities are truly endless :).
