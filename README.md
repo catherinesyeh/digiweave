@@ -5,6 +5,8 @@
 # Overview
 DigiWeave is a programming language that allows users to design friendship bracelet patterns. Perfect for lovers of arts & crafts and computer scientists alike, DigiWeave’s goal is to offer an innovative, user-friendly tool that fosters creative expression through technology.
 
+View our demo [here](https://catherinesyeh.github.io/digidemo/).
+
 # Example Patterns
 Here are some example patterns made with DigiWeave to inspire your own programs.
 
