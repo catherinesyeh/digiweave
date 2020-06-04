@@ -8,7 +8,7 @@ DigiWeave is a programming language that allows users to design friendship brace
 View our demo [here](https://catherinesyeh.github.io/digidemo/). You can also write your own programs with this tool!
 
 # Example Patterns
-Here are some example patterns made with DigiWeave to inspire your own programs.
+Here are some example patterns made with DigiWeave to inspire your own programs. View the [examples](examples) directory for more sample programs.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/catherinesyeh/digiweave/master/spec/images/2ROWS.png" width="45%"></img> <img src="https://raw.githubusercontent.com/catherinesyeh/digiweave/master/spec/images/HEART.png" width="45%"></img> 
